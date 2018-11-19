@@ -1,38 +1,66 @@
-﻿using Common;
+﻿using System.Collections.Generic;
+using Common;
+using DAL;
 using PL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL
 {
     public class MemoryProvider : IMemory
     {
-        public bool AddUser()
+        public bool AddUser(Users user)
         {
-            throw new NotImplementedException();
+            return UserAndRewardList.AddUser(user);
         }
 
         public bool DeleteUser(int id)
         {
-            throw new NotImplementedException();
+            return UserAndRewardList.DeleteUser(id);
         }
 
         public SortableList<Rewards> GetRewards()
         {
-            throw new NotImplementedException();
-        }
-
-        public SortableList<Rewards> GetUserRewardsByID(int id)
-        {
-            throw new NotImplementedException();
+            return new SortableList<Rewards>(UserAndRewardList.GetRewards());
         }
 
         public SortableList<Users> GetUsers()
         {
-            throw new NotImplementedException();
+            var rewards = new SortableList<Users>(UserAndRewardList.GetUsers());
+            return rewards;
+        }
+
+        public SortableList<Rewards> GetUserRewardsByID(int id)
+        {
+            return new SortableList<Rewards>(UserAndRewardList.GetRewardsByID(id));
+        }
+
+        public bool UpdateUser(Users user)
+        {
+            return UserAndRewardList.UpdateUser(user);
+        }
+
+        public bool UpdateReward(Rewards reward)
+        {
+            return UserAndRewardList.UpdateReward(reward);
+        }
+
+        public bool AddReward(Rewards reward)
+        {
+            return UserAndRewardList.AddReward(reward);
+        }
+
+        public bool DeleteReward(int id)
+        {
+            return UserAndRewardList.DeleteReward(id);
+        }
+
+        public bool AddRewardToUser(int id, IEnumerable<int> rewardIds)
+        {
+            return UserAndRewardList.AddRewardToUser(id, rewardIds);
+        }
+
+        public bool DeleteRewardFromUser(int id, int rewardId)
+        {
+            return UserAndRewardList.DeleteRewardFromUser(id, rewardId);
         }
     }
 }

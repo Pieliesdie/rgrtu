@@ -38,10 +38,16 @@ namespace PL
 
         private void memoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _memory = new MemoryProvider();
+            if (memoryToolStripMenuItem.Checked == false)
+            {
+                memoryToolStripMenuItem.Checked = true;
+                dataBaseToolStripMenuItem.Checked = false;
+                _memory = new MemoryProvider();
+                UpdateTables();
+            }
         }
 
-        private void UpdateTables()
+        public void UpdateTables()
         {
             dataGridView1.Columns.Clear();
             var users = _memory.GetUsers();
@@ -53,8 +59,13 @@ namespace PL
 
         private void dataBaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _memory = new DBProvider();
-            UpdateTables();
+            if (dataBaseToolStripMenuItem.Checked == false)
+            {
+                dataBaseToolStripMenuItem.Checked = true;
+                memoryToolStripMenuItem.Checked = false;
+                _memory = new DBProvider();
+                UpdateTables();
+            }
         }
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -80,6 +91,77 @@ namespace PL
                 _memory.DeleteUser((int)dataGridView1.SelectedRows[0].Cells[0].Value);
             }
             UpdateTables();
+        }
+
+        private void addNewUserToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_memory == null)
+            {
+                MessageBox.Show("choose data source");
+            }
+            else
+            new UserForm(this,_memory).Show();
+        }
+
+        private void changeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new UserForm(this, _memory, new Common.Users()
+            {
+                ID = (int)dataGridView1.SelectedRows[0].Cells[0].Value,
+                FirstName = (string)dataGridView1.SelectedRows[0].Cells[1].Value,
+                LastName = (string)dataGridView1.SelectedRows[0].Cells[2].Value,
+                Birthday = DateTime.Parse(dataGridView1.SelectedRows[0].Cells[3].Value.ToString())
+            }).Show();
+        }
+
+        private void dataGridView2_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                RewardMenu.Show(Cursor.Position.X, Cursor.Position.Y);
+            }
+        }
+
+        private void addNewRewardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_memory == null)
+            {
+                MessageBox.Show("choose data source");
+            }
+            else
+            new RewardForm(this, _memory).Show();
+        }
+
+        private void deleteToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (dataGridView2.SelectedRows != null)
+            {
+                _memory.DeleteReward((int)dataGridView2.SelectedRows[0].Cells[0].Value);
+            }
+            UpdateTables();
+        }
+
+        private void changeToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            new RewardForm(this, _memory, new Common.Rewards()
+            {
+                ID = (int)dataGridView2.SelectedRows[0].Cells[0].Value,
+                Title = (string)dataGridView2.SelectedRows[0].Cells[1].Value,
+                Decription = (string)dataGridView2.SelectedRows[0].Cells[2].Value,
+            }).Show();
+        }
+
+        private void updateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_memory != null)
+            {
+                UpdateTables();
+            }
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("RSREU,2018");
         }
     }
 }

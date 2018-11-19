@@ -1,36 +1,143 @@
-﻿using Common;
+﻿using System.Collections.Generic;
+using Common;
 using DAL;
-using System;
 using PL;
-using System.Windows.Forms;
 
 namespace BLL
 {
     public class DBProvider : IMemory
     {
-        public bool AddUser()
+        public bool AddUser(Users user)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return DataBaseUserAndReward.AddUser(user);
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public bool DeleteUser(int id)
         {
-            return DataBaseUserAndReward.DeleteUser(id);
+            try
+            {
+                return DataBaseUserAndReward.DeleteUser(id);
+            }
+            catch
+            {
+                return false;
+            }
         }
+
         public SortableList<Rewards> GetRewards()
         {
-            return new SortableList<Rewards>(DataBaseUserAndReward.GetRewards());
+            try
+            {
+                return new SortableList<Rewards>(DataBaseUserAndReward.GetRewards());
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public SortableList<Users> GetUsers()
         {
-            var rewards = new SortableList<Users>(DataBaseUserAndReward.GetUsers());
-            return rewards;
+            try
+            {
+                var rewards = new SortableList<Users>(DataBaseUserAndReward.GetUsers());
+                return rewards;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public SortableList<Rewards> GetUserRewardsByID(int id)
         {
-            return new SortableList<Rewards>(DataBaseUserAndReward.GetRewardsByID(id));
+            try
+            {
+                return new SortableList<Rewards>(DataBaseUserAndReward.GetRewardsByID(id));
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public bool UpdateUser(Users user)
+        {
+            try
+            {
+                return DataBaseUserAndReward.UpdateUser(user);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool UpdateReward(Rewards reward)
+        {
+            try
+            {
+                return DataBaseUserAndReward.UpdateReward(reward);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool AddReward(Rewards reward)
+        {
+            try
+            {
+                return DataBaseUserAndReward.AddReward(reward);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteReward(int id)
+        {
+            try
+            {
+                return DataBaseUserAndReward.DeleteReward(id);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool AddRewardToUser(int id, IEnumerable<int> rewardIds)
+        {
+            try
+            {
+                return DataBaseUserAndReward.AddRewardToUser(id, rewardIds);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteRewardFromUser(int id, int rewardId)
+        {
+            try
+            {
+                return DataBaseUserAndReward.DeleteRewardFromUser(id, rewardId);
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

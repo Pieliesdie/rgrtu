@@ -63,6 +63,86 @@ namespace PL.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_база_данных_filled_50 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-база-данных-filled-50", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_конфигурация_данных_30 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-конфигурация-данных-30", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_конфигурация_данных_filled_50 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-конфигурация-данных-filled-50", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_о_нас_24 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-о-нас-24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_о_нас_32 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-о-нас-32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_обновить_левое_вращение_64 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-обновить-левое-вращение-64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_оперативная_память_смартфона_filled_50 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-оперативная-память-смартфона-filled-50", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_удалить_64 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-удалить-64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap kisspng_hamburger_button_computer_icons_menu_clip_art_5adcc45cad2da2_9774904315244176287094 {
             get {
                 object obj = ResourceManager.GetObject("kisspng-hamburger-button-computer-icons-menu-clip-art-5adcc45cad2da2.977490431524" +

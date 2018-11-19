@@ -31,9 +31,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBox3 = new System.Windows.Forms.MaskedTextBox();
+            this.FirstName = new System.Windows.Forms.MaskedTextBox();
+            this.LastName = new System.Windows.Forms.MaskedTextBox();
+            this.birthdate = new System.Windows.Forms.MaskedTextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -65,28 +65,28 @@
             this.label3.TabIndex = 3;
             this.label3.Text = "Birthdate";
             // 
-            // maskedTextBox1
+            // FirstName
             // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(72, 23);
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(100, 20);
-            this.maskedTextBox1.TabIndex = 4;
+            this.FirstName.Location = new System.Drawing.Point(72, 23);
+            this.FirstName.Name = "FirstName";
+            this.FirstName.Size = new System.Drawing.Size(100, 20);
+            this.FirstName.TabIndex = 4;
             // 
-            // maskedTextBox2
+            // LastName
             // 
-            this.maskedTextBox2.Location = new System.Drawing.Point(73, 58);
-            this.maskedTextBox2.Name = "maskedTextBox2";
-            this.maskedTextBox2.Size = new System.Drawing.Size(100, 20);
-            this.maskedTextBox2.TabIndex = 5;
+            this.LastName.Location = new System.Drawing.Point(73, 58);
+            this.LastName.Name = "LastName";
+            this.LastName.Size = new System.Drawing.Size(100, 20);
+            this.LastName.TabIndex = 5;
             // 
-            // maskedTextBox3
+            // birthdate
             // 
-            this.maskedTextBox3.Location = new System.Drawing.Point(72, 92);
-            this.maskedTextBox3.Mask = "00/00/0000";
-            this.maskedTextBox3.Name = "maskedTextBox3";
-            this.maskedTextBox3.Size = new System.Drawing.Size(100, 20);
-            this.maskedTextBox3.TabIndex = 6;
-            this.maskedTextBox3.ValidatingType = typeof(System.DateTime);
+            this.birthdate.Location = new System.Drawing.Point(72, 92);
+            this.birthdate.Mask = "00/00/0000";
+            this.birthdate.Name = "birthdate";
+            this.birthdate.Size = new System.Drawing.Size(100, 20);
+            this.birthdate.TabIndex = 6;
+            this.birthdate.ValidatingType = typeof(System.DateTime);
             // 
             // button1
             // 
@@ -96,6 +96,7 @@
             this.button1.TabIndex = 7;
             this.button1.Text = "Ok";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -105,6 +106,7 @@
             this.button2.TabIndex = 8;
             this.button2.Text = "Cancel";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // UserForm
             // 
@@ -113,9 +115,9 @@
             this.ClientSize = new System.Drawing.Size(198, 169);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.maskedTextBox3);
-            this.Controls.Add(this.maskedTextBox2);
-            this.Controls.Add(this.maskedTextBox1);
+            this.Controls.Add(this.birthdate);
+            this.Controls.Add(this.LastName);
+            this.Controls.Add(this.FirstName);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -131,9 +133,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox2;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox3;
+        private System.Windows.Forms.MaskedTextBox FirstName;
+        private System.Windows.Forms.MaskedTextBox LastName;
+        private System.Windows.Forms.MaskedTextBox birthdate;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
     }
