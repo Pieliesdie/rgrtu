@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PL.Properties
+namespace digital_signature_RSA.Properties
 {
 
 
