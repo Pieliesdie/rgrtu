@@ -40,10 +40,10 @@ namespace digital_signature_RSA
             return prime;
         }
 
-        public static Int64 FastPowFunc(Int64 Number, Int64 Pow, Int64 Mod)
-        {
-            Int64 Result = 1;
-            Int64 Bit = Number % Mod;
+        public static long FastPowFunc(long Number, long Pow, long Mod) 
+        { 
+            long Result = 1;
+            long Bit = (Number % Mod);
 
             while (Pow > 0)
             {

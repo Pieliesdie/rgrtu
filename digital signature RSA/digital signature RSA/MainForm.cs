@@ -21,7 +21,17 @@ namespace digital_signature_RSA
                 MessageBox.Show("Numbers are not simple");
                 return;
             }
-            var RSA = new RSAProvider(p, q);
+            RSAProvider RSA = null;
+            try
+            {
+                RSA = new RSAProvider(p, q);
+            }
+            catch ( System.OverflowException )
+            {
+                MessageBox.Show("numbers are too big");
+                return;
+            }
+
             long n = RSA.PublicKeyN;
             long e_ = RSA.PublicKeyE;
             long d = RSA.PrivateKey;

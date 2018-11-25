@@ -29,20 +29,23 @@
 
         public RSAProvider(int p,int q)
         {
-            PublicKeyN = p * q;
+            checked
+            {
+                PublicKeyN = p * q;
+            }
             long m = (p - 1) * (q - 1);
             PublicKeyE = GetE(m);
             PrivateKey = MathHelp.ReverseElement(PublicKeyE, m);
         }
 
-        public static long Encrypt(long s,long e,long n)
+        public static long Encrypt(long s, long e, long n)
         {
             return MathHelp.FastPowFunc(s, e, n);
         }
 
         public static long Decrypt(long s, long d, long n)
         {
-            return Encrypt( s,  d,  n);
+            return Encrypt(s, d, n);
         }
     }
 }
