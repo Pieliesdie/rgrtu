@@ -17,11 +17,11 @@
 
   <ItemGroup>
     <Reference Include="MaterialDesignColors">
-      <HintPath>C:\Users\Pieliedie\Downloads\DemoApp\DemoApp\MaterialDesignColors.dll</HintPath>
+      <HintPath>..\subdClientApp\dll\MaterialDesignColors.dll</HintPath>
       <Private>true</Private>
     </Reference>
     <Reference Include="MaterialDesignThemes.Wpf">
-      <HintPath>C:\Users\Pieliedie\Downloads\DemoApp\DemoApp\MaterialDesignThemes.Wpf.dll</HintPath>
+      <HintPath>..\subdClientApp\dll\MaterialDesignThemes.Wpf.dll</HintPath>
       <Private>true</Private>
     </Reference>
   </ItemGroup>
