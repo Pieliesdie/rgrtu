@@ -45,26 +45,31 @@ namespace TokenApp.Controllers
             {
                 _command.CommandText = command;
                 _command.CommandType = System.Data.CommandType.Text;
-
                 dbContext.Database.OpenConnection();
-
-                using (var result = _command.ExecuteReader())
+                try
                 {
-                    if (result.HasRows)
+                    using (var result = _command.ExecuteReader())
                     {
-                        if (sb.Length > 0) sb.Append("___");
-                        while (await result.ReadAsync())
+                        if (result.HasRows)
                         {
-                            for (int i = 0; i < result.FieldCount; i++)
+                            if (sb.Length > 0) sb.Append("___");
+                            while (await result.ReadAsync())
                             {
-                                if (result.GetValue(i) != DBNull.Value)
+                                for (int i = 0; i < result.FieldCount; i++)
                                 {
-                                    sb.AppendFormat("{0} ", Convert.ToString(result.GetValue(i)));
+                                    if (result.GetValue(i) != DBNull.Value)
+                                    {
+                                        sb.AppendFormat("{0} ", Convert.ToString(result.GetValue(i)));
+                                    }
                                 }
+                                sb.AppendLine();
                             }
-                            sb.AppendLine();
                         }
                     }
+                }
+                catch(Exception e)
+                {
+                    return e.Message;
                 }
             }
             return sb.ToString();

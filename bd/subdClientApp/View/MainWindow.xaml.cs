@@ -23,7 +23,7 @@ namespace subdClientApp
             var x = await App.dataReader.GetSecurityLabelsAsync();
             var info = await App.dataReader.GetInfoAsync();
 
-            var name = $"You are log in as {(await App.dataReader.GetInfoAsync()).Login}, Доступ - {x.Where(x=>x.Id==info.Permission).FirstOrDefault()} ";
+            var name = $"You are log in as {(await App.dataReader.GetInfoAsync()).Login}, Доступ - {x.Where(x => x.Id == info.Permission).FirstOrDefault()} ";
 
             InfoItem.Header = name;
 
@@ -53,7 +53,7 @@ namespace subdClientApp
 
 
         public MainWindow()
-        {         
+        {
             InitializeComponent();
             Init();
             this.DataContext = this;
@@ -65,7 +65,7 @@ namespace subdClientApp
             dataGrid.ItemsSource = await App.dataReader.GetArticlesAsync();
         }
 
-  
+
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
             Environment.Exit(0);
@@ -118,11 +118,11 @@ namespace subdClientApp
                 if (isok)
                 {
                     NameTextBox.Text = string.Empty;
-                     MiddleNameTextBox.Text = string.Empty;
+                    MiddleNameTextBox.Text = string.Empty;
                     SurNameTextBox.Text = string.Empty;
-                   AgeTextBox.Text = string.Empty;
+                    AgeTextBox.Text = string.Empty;
                     EmailTextBox.Text = string.Empty;
-                     DescriptionTextBox.Text = string.Empty;
+                    DescriptionTextBox.Text = string.Empty;
                     SecurityLabelAuthorTextBox.SelectedIndex = -1;
                     MessageBox.Show("Запись добавлена");
                 }
@@ -162,7 +162,7 @@ namespace subdClientApp
                 article.ShortName = ShortNameTextBox.Text;
                 article.Decription = ArticleDescriptionTextBox.Text;
 
-                if(!isUpdate)
+                if (!isUpdate)
                     article.CreateDate = DateTime.Now;
 
                 article.LastChange = DateTime.Now;
@@ -219,7 +219,7 @@ namespace subdClientApp
                 }
                 else
                 {
-                     isok = await App.dataReader.AddDocumentTypeAsync(document);
+                    isok = await App.dataReader.AddDocumentTypeAsync(document);
                 }
                 if (isok)
                 {
@@ -262,7 +262,7 @@ namespace subdClientApp
                         MessageBox.Show("Запрещено");
                     }
                 }
-                else if(dataGrid.SelectedItem as Authors != null)
+                else if (dataGrid.SelectedItem as Authors != null)
                 {
                     var isok = await App.dataReader.DeleteAuthorAsync((dataGrid.SelectedItem as Authors).Id);
                     if (isok)
@@ -275,7 +275,7 @@ namespace subdClientApp
                         MessageBox.Show("Запрещено");
                     }
                 }
-                else if(dataGrid.SelectedItem as DocumentTypes != null)
+                else if (dataGrid.SelectedItem as DocumentTypes != null)
                 {
                     var isok = await App.dataReader.DeleteDocumentTypeAsync((dataGrid.SelectedItem as DocumentTypes).Id);
                     if (isok)
@@ -291,7 +291,7 @@ namespace subdClientApp
             }
             catch
             {
-                MessageBox.Show("Что-то пошло не так...");           
+                MessageBox.Show("Что-то пошло не так...");
             }
 
         }
@@ -334,7 +334,7 @@ namespace subdClientApp
         }
 
         private void MenuItem_Click_5(object sender, RoutedEventArgs e)
-        {           
+        {
             new AuthWindow().Show();
             App.dataReader.Dispose();
             this.Close();
@@ -343,6 +343,34 @@ namespace subdClientApp
         private void Window_Closed(object sender, EventArgs e)
         {
             GC.Collect();
+        }
+
+        private async void CreateBackupButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await App.dataReader.ExecCode(@"BACKUP DATABASE NotConsultantv2" +
+                   @" TO DISK = 'C:\backup\backup.bak'" +
+                   "    WITH FORMAT;");
+                ConsoleResultTextBox.Text += "BACKUP DATABASE was successful\n";
+            }
+            catch
+            {
+                MessageBox.Show("Error");
+            }
+        }
+
+        private async void RestoreBackupButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+               await App.dataReader.ExecCode(@"alter database  NotConsultantv2 set offline with rollback immediate;restore DATABASE NotConsultantv2 from DISK = 'C:\backup\backup.bak' with replace;");
+                ConsoleResultTextBox.Text += "Restore DATABASE was successful\n";
+            }
+            catch
+            {
+                MessageBox.Show("Error");
+            }
         }
     }
 }

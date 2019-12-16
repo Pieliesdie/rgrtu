@@ -7,11 +7,24 @@ using SubdWebApi;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using Model;
+using Microsoft.Extensions.Configuration;
 
 namespace TokenApp
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; set; }
+        public IHostingEnvironment Environment { get; set; }
+
+        public Startup(IConfiguration configuration, IHostingEnvironment environment)
+        {
+            Environment = environment;
+            Configuration = new ConfigurationBuilder()
+                     .AddJsonFile("appsettings.json")
+                     .AddJsonFile($"appsettings.{Environment.EnvironmentName}.json")
+                     .Build();
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -38,7 +51,8 @@ namespace TokenApp
                             ValidateIssuerSigningKey = true,
                         };
                     });
-            string con = "Server=DESKTOP-MK32EF2;Database=NotConsultantv2;Trusted_Connection=True;MultipleActiveResultSets=true";
+            string con = Configuration["Connection"];
+
             services.AddDbContext<NotConsultantv2Context>(options => options.UseSqlServer(con));
             services.AddMvc(option => option.EnableEndpointRouting = false);
             services.AddHttpContextAccessor();

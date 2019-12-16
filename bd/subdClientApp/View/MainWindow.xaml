@@ -187,7 +187,29 @@
                                 VerticalScrollBarVisibility="Auto"
                                 materialDesign:HintAssist.Hint="Command"/>
 
-                            <Button              
+                            <StackPanel
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Right">
+                                <Button              
+                                Margin="5"
+                                HorizontalAlignment="left"
+                                MinWidth="150"                              
+                                x:Name="CreateBackupButton"
+                                Click="CreateBackupButton_Click"
+                                >
+                                    Create backup
+                                </Button>
+                                <Button              
+                                Margin="5"
+                                HorizontalAlignment="left"
+                                MinWidth="150"                               
+                                x:Name="RestoreBackupButton"
+                                Click="RestoreBackupButton_Click"
+                                >
+                                    Restore backup
+                                </Button>
+
+                                <Button              
                                 Margin="5"
                                 HorizontalAlignment="Right"
                                 MinWidth="150"
@@ -195,8 +217,9 @@
                                 x:Name="ConsoleExecButton"
                                 Click="ConsoleExecButton_Click"
                                 >
-                                Execute
-                            </Button>
+                                    Execute
+                                </Button>
+                            </StackPanel>
 
                             <TextBox
                                 Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
@@ -213,6 +236,7 @@
                                 TextWrapping="Wrap"
                                 VerticalScrollBarVisibility="Auto"
                                 materialDesign:HintAssist.Hint="Result"/>
+
 
 
                         </StackPanel>

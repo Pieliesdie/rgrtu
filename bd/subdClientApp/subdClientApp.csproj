@@ -15,7 +15,7 @@
     <ProjectReference Include="..\subdDataProvider\subdDataProvider.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
+ <ItemGroup>
     <Reference Include="MaterialDesignColors">
       <HintPath>..\subdClientApp\dll\MaterialDesignColors.dll</HintPath>
       <Private>true</Private>
