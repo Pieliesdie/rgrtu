@@ -91,5 +91,7 @@ namespace GIS2
                 encoder.Save(stream);
             }
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e) => new ShowImg(new CroppedBitmap(img.Source as BitmapSource, new Int32Rect(520, 270, 101, 101))).Show();
     }
 }

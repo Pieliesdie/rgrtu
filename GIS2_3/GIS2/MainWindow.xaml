@@ -11,14 +11,15 @@
             <Label HorizontalAlignment="Center" FontSize="16">16 Colors</Label>
             <Image x:Name="img" Width="500" Height="300"></Image>
             <CheckBox Margin="100,15,0,0" Content="Invert" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"></CheckBox>
-            <Button HorizontalAlignment="Right" Width="100" Height="30" Content="Save" Margin="20" Click="Button_Click"></Button>
+            <Button HorizontalAlignment="Right" Width="100" Height="30" Content="Save" Margin="0,0,20,0" Click="Button_Click"></Button>
+            <Button HorizontalAlignment="Right" Width="100" Height="30" Content="Cut" Margin="0,10,20,0" Click="Button_Click_2" ></Button>
         </StackPanel>
         
         <StackPanel DockPanel.Dock="Left">
             <Label HorizontalAlignment="Center" FontSize="16">256 Colors</Label>
             <Image x:Name="img2" Width="500" Height="300"></Image>
             <CheckBox Margin="100,15,0,0" Content="Invert" Checked="CheckBox_Checked_1" Unchecked="CheckBox_Unchecked_1"></CheckBox>
-            <Button HorizontalAlignment="Right" Width="100" Height="30" Content="Save" Margin="20" Click="Button_Click_1"></Button>
+            <Button HorizontalAlignment="Right" Width="100" Height="30" Content="Save" Margin="0,0,20,0" Click="Button_Click_1"></Button>
         </StackPanel>
         
     </DockPanel>
