@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GIS2"
         mc:Ignorable="d"
-        Title="Cut" Height="254" Width="479" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
-    <Grid>
-        <Image x:Name="img" HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Top" Stretch="UniformToFill" MaxHeight="300" MaxWidth="300"/>
+        Title="Cut" Height="269" Width="459" ResizeMode="NoResize" >
+    <Grid >
+        <Image x:Name="img" Margin="5,4,9,9"/>
     </Grid>
 </Window>
