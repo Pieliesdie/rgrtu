@@ -20,6 +20,8 @@ namespace GIS2
 
     public partial class MainWindow : Window
     {
+        byte[] data => File.ReadAllBytes("COLOR256.MTX");
+
         public MainWindow()
         {
             InitializeComponent();
@@ -39,6 +41,22 @@ namespace GIS2
             bits.CopyTo(ret, 0);
             return ret;
         }
+
+        BitmapPalette ContrastPallete(BitmapPalette src, byte ymin, byte ymax)
+        {
+            byte f(byte x)
+            {
+                return (byte)((double)(x - 0) / (255 - 0) * (ymax - ymin) + ymin);
+            }
+
+            List<Color> colors = new List<Color>();
+
+            foreach (var i in src.Colors)
+                colors.Add(Color.FromRgb(f(i.R), f(i.G), f(i.B)));
+
+            return new BitmapPalette(colors);
+        }
+
 
         BitmapSource Cut(string path)
         {
@@ -112,5 +130,16 @@ namespace GIS2
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e) => new ShowImg(Cut("COLOR16.MTX")).Show();
+
+
+
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            BitmapSource result = BitmapSource.Create(640, 480, 96, 96, PixelFormats.Indexed8, ContrastPallete(BitmapPalettes.Gray256,(byte)ymin.Value,(byte)ymax.Value), data, 640);
+            result.Freeze();
+            result = new TransformedBitmap(result, new ScaleTransform(1, -1));
+            img2.Source = result;
+        }
+
     }
 }
