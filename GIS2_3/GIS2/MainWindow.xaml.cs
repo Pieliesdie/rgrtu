@@ -46,8 +46,14 @@ namespace GIS2
         {
             byte f(byte x)
             {
-                return (byte)((double)(x - 0) / (255 - 0) * (ymax - ymin) + ymin);
+                var result = (double)255 / (ymax - ymin) * (x - ymin);
+
+                result = result > 255 ? 255 : result;
+                result = result < 0 ? 0 : result;
+
+                return (byte)result;
             }
+
 
             List<Color> colors = new List<Color>();
 
