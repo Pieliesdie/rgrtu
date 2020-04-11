@@ -5,12 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GIS2"
         mc:Ignorable="d"
-        Title="GIS" Height="539" Width="1050">
+        Title="GIS" Height="644" Width="1050">
     <DockPanel>
         <StackPanel DockPanel.Dock="Left">
             <Label HorizontalAlignment="Center" FontSize="16">16 Colors</Label>
             <Image x:Name="img" Width="500" Height="300"></Image>
-            <CheckBox Margin="100,15,0,0" Content="Invert" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"></CheckBox>
             <Button HorizontalAlignment="Right" Width="100" Height="30" Content="Save" Margin="0,0,20,0" Click="Button_Click"></Button>
             <Button HorizontalAlignment="Right" Width="100" Height="30" Content="Cut" Margin="0,10,20,0" Click="Button_Click_2" ></Button>
         </StackPanel>
@@ -18,12 +17,17 @@
         <StackPanel DockPanel.Dock="Left">
             <Label HorizontalAlignment="Center" FontSize="16">256 Colors</Label>
             <Image x:Name="img2" Width="500" Height="300"></Image>
-            <CheckBox Margin="100,15,0,0" Content="Invert" Checked="CheckBox_Checked_1" Unchecked="CheckBox_Unchecked_1"></CheckBox>
             <Button HorizontalAlignment="Right" Width="100" Height="30" Content="Save" Margin="0,0,20,0" Click="Button_Click_1"></Button>
             <Label HorizontalAlignment="Center">Y min</Label>
             <Slider x:Name="ymin" Width="220" Maximum="255" ValueChanged="Slider_ValueChanged"/>
             <Label HorizontalAlignment="Center">Y max</Label>
             <Slider x:Name="ymax" Width="220" Maximum="255" ValueChanged="Slider_ValueChanged"/>
+            <Label HorizontalAlignment="Center">Scale X</Label>
+            <TextBox x:Name="scaleX" Width="100"></TextBox>
+            <Label HorizontalAlignment="Center">Scale Y</Label>
+            <TextBox x:Name="scaleY"  Width="100"></TextBox>
+            <Button Width="100" Height="30" Click="Button_Click_3">Apply</Button>
+
         </StackPanel>
 
     </DockPanel>
