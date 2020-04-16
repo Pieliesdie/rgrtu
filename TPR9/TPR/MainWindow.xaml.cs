@@ -64,6 +64,7 @@ namespace TPR
             dataGrid.CellStyle = ImTired.CellStyle;
             dataGrid.RowHeaderStyle = ImTired.RowHeaderStyle;
             dataGrid.CanUserAddRows = false;
+            dataGrid.CanUserResizeColumns = false;
             dataGrid.CanUserSortColumns = false;
             dataGrid.CanUserDeleteRows = false;
             return dataGrid;

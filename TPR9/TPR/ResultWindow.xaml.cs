@@ -43,7 +43,7 @@ namespace TPR
             Values.Add(mins.OrderByDescending(x => x).Select(x => (double)mins.FindIndex(y => y == x) + 1).ToList());
             Criterions.Add("Raiting");
 
-            RotateList.ForEach(x => SeriesCollection.Add(new LineSeries() { Values = new ChartValues<double>(x)}));
+            RotateList.Zip(Objects, (x,y) => new {x,y }).ToList().ForEach(x => SeriesCollection.Add(new LineSeries() { Values = new ChartValues<double>(x.x),Title =x.y}));
 
             this.DataContext = this;
         }

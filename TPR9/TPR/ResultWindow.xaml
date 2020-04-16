@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TPR"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        Title="ResultWindow" Height="450" Width="800">
+        Title="ResultWindow" Height="450" Width="1150">
     <DockPanel  >
         <ScrollViewer Margin="10" VerticalScrollBarVisibility="Auto">
             <StackPanel>
@@ -24,7 +24,7 @@
         </ScrollViewer>
 
 
-        <ScrollViewer Margin="10" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" MaxWidth="380">
+        <ScrollViewer Margin="10" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" MaxWidth="680">
             <StackPanel>
                 <DataGrid ColumnWidth="Auto" 
                       FontSize="24" 
@@ -82,7 +82,7 @@
             </StackPanel>
         </ScrollViewer>
 
-        <lvc:CartesianChart  Series="{Binding SeriesCollection}">
+        <lvc:CartesianChart  Series="{Binding SeriesCollection}" LegendLocation="Top">
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis Labels="{Binding Labels}"  LabelFormatter="{Binding Formatter}"></lvc:Axis>
             </lvc:CartesianChart.AxisX>
