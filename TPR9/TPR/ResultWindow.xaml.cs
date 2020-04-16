@@ -12,7 +12,7 @@ namespace TPR
     /// </summary>
     public partial class ResultWindow : Window
     {
-        public static readonly string Format = "0.00";
+        public static readonly string Format = "0.000";
 
         public ResultWindow(List<string> Criterions, List<string> Objects, List<List<double>> ObjectRatios, List<double> CriterionRatios, bool IsEquilibrium)
         {
@@ -36,11 +36,13 @@ namespace TPR
             //uncomment if wanna in another dg
             //Mins = RotateList.Select(x => new StringContainer() { Value = $"{x.Min().ToString(Format)}({Criterions[x.FindIndex(y=>y==x.Min())]})" }).ToList();
 
-            var mins = RotateList.Select(x => x.Min()).ToList();
+            var mins = RotateList.Select(x =>x.Min()).ToList();
             Values.Add(mins);
             Criterions.Add("Minimums");
 
-            Values.Add(mins.OrderByDescending(x => x).Select(x => (double)mins.FindIndex(y => y == x) + 1).ToList());
+            var sortedMins = mins.OrderByDescending(x => x).ToList();
+         
+            Values.Add(mins.Select(x => (double)sortedMins.FindIndex(y => x == y)+1).ToList()); 
             Criterions.Add("Raiting");
 
             RotateList.Zip(Objects, (x,y) => new {x,y }).ToList().ForEach(x => SeriesCollection.Add(new LineSeries() { Values = new ChartValues<double>(x.x),Title =x.y}));

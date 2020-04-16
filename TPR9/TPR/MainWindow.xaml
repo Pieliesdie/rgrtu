@@ -5,92 +5,92 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TPR"
         mc:Ignorable="d"
-        Title="Bellmane-Zade" Height="495" Width="1079" ResizeMode="NoResize">
+        Title="Bellmane-Zade" Height="510" Width="1179" ResizeMode="NoResize">
     <StackPanel>
-    <StackPanel Orientation="Horizontal" MaxHeight="380">
-        <DataGrid                      
+        <StackPanel Orientation="Horizontal" MaxHeight="380">
+            <DataGrid                      
             x:Name="ImTired"
             Visibility="Hidden">
-            <DataGrid.ColumnHeaderStyle>
-                <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="LayoutTransform">
-                        <Setter.Value>
-                            <TransformGroup>
-                                <RotateTransform Angle="-90"/>
-                                <ScaleTransform ScaleX="1" ScaleY="-1" />
-                            </TransformGroup>
-                        </Setter.Value>
-                    </Setter>
-                    <Setter Property="FontWeight" Value="Bold"></Setter>
-                </Style>
-            </DataGrid.ColumnHeaderStyle>
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="LayoutTransform">
+                            <Setter.Value>
+                                <TransformGroup>
+                                    <RotateTransform Angle="-90"/>
+                                    <ScaleTransform ScaleX="1" ScaleY="-1" />
+                                </TransformGroup>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="FontWeight" Value="Bold"></Setter>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
 
-            <DataGrid.RowHeaderStyle>
-                <Style TargetType="{x:Type DataGridRowHeader}">
-                    <Setter Property="LayoutTransform">
-                        <Setter.Value>
-                            <TransformGroup>
-                                <RotateTransform Angle="-90"/>
-                                <ScaleTransform ScaleX="1" ScaleY="-1" />
-                            </TransformGroup>
-                        </Setter.Value>
-                    </Setter>
-                    <Setter Property="FontWeight" Value="Bold"></Setter>
-                </Style>
-            </DataGrid.RowHeaderStyle>
+                <DataGrid.RowHeaderStyle>
+                    <Style TargetType="{x:Type DataGridRowHeader}">
+                        <Setter Property="LayoutTransform">
+                            <Setter.Value>
+                                <TransformGroup>
+                                    <RotateTransform Angle="-90"/>
+                                    <ScaleTransform ScaleX="1" ScaleY="-1" />
+                                </TransformGroup>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="FontWeight" Value="Bold"></Setter>
+                    </Style>
+                </DataGrid.RowHeaderStyle>
 
-            <DataGrid.CellStyle >
-                <Style TargetType="DataGridCell" >
-                    <Setter Property="LayoutTransform">
-                        <Setter.Value>
-                            <TransformGroup>
-                                <RotateTransform Angle="-90"/>
-                                <ScaleTransform ScaleX="1" ScaleY="-1" />
-                            </TransformGroup>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </DataGrid.CellStyle>
+                <DataGrid.CellStyle >
+                    <Style TargetType="DataGridCell" >
+                        <Setter Property="LayoutTransform">
+                            <Setter.Value>
+                                <TransformGroup>
+                                    <RotateTransform Angle="-90"/>
+                                    <ScaleTransform ScaleX="1" ScaleY="-1" />
+                                </TransformGroup>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.CellStyle>
 
-        </DataGrid>
+            </DataGrid>
 
-        <StackPanel Width="200">
-            <Label FontSize="24">Insert criterions</Label>
-            <DataGrid ItemsSource="{Binding Criterions}" 
+            <StackPanel Width="200" Margin="10">
+                <Label FontSize="24">Insert criterions</Label>
+                <DataGrid ItemsSource="{Binding Criterions}" 
                       AutoGenerateColumns="True"
                       ColumnWidth="*"
                       HeadersVisibility="None"
                       CellEditEnding="CreateObjectMatrixs">
-            </DataGrid>
+                </DataGrid>
 
-        </StackPanel>
+            </StackPanel>
 
-        <StackPanel Width="200">
-            <Label FontSize="24">Insert objects</Label>
-            <DataGrid ItemsSource="{Binding Objects}" 
+            <StackPanel Width="200" Margin="10">
+                <Label FontSize="24">Insert objects</Label>
+                <DataGrid ItemsSource="{Binding Objects}" 
                       AutoGenerateColumns="True"
                       ColumnWidth="*"
                       HeadersVisibility="None"
                       CellEditEnding="CreateObjectMatrixs"/>
+            </StackPanel>
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Width="300" Margin="10">
+                <StackPanel>
+                    <Label x:Name="label" FontSize="24">Ratio matrixs for objects</Label>
+                    <StackPanel x:Name="ObjectMatrixs">
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+
+            <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Auto" Width="350" Margin="10">
+                <StackPanel>
+                    <Label x:Name="label2" FontSize="24">Ratio matrix for criterions</Label>
+                    <StackPanel x:Name="CriterionMatrixs">
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
         </StackPanel>
-
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Width="300">
-            <StackPanel>
-                <Label x:Name="label" FontSize="24">Ratio matrixs for objects</Label>
-                <StackPanel x:Name="ObjectMatrixs">
-                </StackPanel>
-            </StackPanel>
-        </ScrollViewer>
-
-        <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Auto" Width="350">
-            <StackPanel>
-                <Label x:Name="label2" FontSize="24">Ratio matrix for criterions</Label>
-                <StackPanel x:Name="CriterionMatrixs">
-                </StackPanel>
-            </StackPanel>
-        </ScrollViewer>
-    </StackPanel>
         <CheckBox x:Name="IsEquilibriumCheckBox" Width="120" Margin="0,10,10,0" HorizontalAlignment="Right" VerticalContentAlignment="Center" FontSize="16">IsEquilibrium</CheckBox>
         <Button HorizontalAlignment="Right" Width="120" Height="30" FontSize="20" Margin="0,10,10,0" Click="Button_Click">Calculate</Button>
-</StackPanel>
+    </StackPanel>
 </Window>
