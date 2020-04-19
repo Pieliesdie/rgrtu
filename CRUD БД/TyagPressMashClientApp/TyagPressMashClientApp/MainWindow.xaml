@@ -1,0 +1,181 @@
+﻿<Window x:Class="TyagPressMashClientApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:TyagPressMashClientApp"
+        xmlns:smtx="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
+        mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"       
+        Title="База данных &quot;Тяжпрессмаш&quot;" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <materialDesign:DrawerHost           
+            BorderThickness="2"
+            BorderBrush="{DynamicResource MaterialDesignDivider}">
+            <!--Left menu-->
+            <materialDesign:DrawerHost.LeftDrawerContent>
+                <StackPanel                  
+                    Margin="16">
+                    <ToggleButton
+                        Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
+                        CommandParameter="{x:Static Dock.Left}"
+                        Margin="4"
+                        x:Name="MenuHideButton"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Right"
+                        Style="{StaticResource MaterialDesignHamburgerToggleButton}">
+                    </ToggleButton>
+
+                    <Button x:Name="PositionsButton" Click="PositionsButton_Click" FontSize="18" Style="{StaticResource MaterialDesignFlatButton}">
+                        Должности
+                    </Button>
+
+                    <Button x:Name="PaymentsButton" Click="PaymentsButton_Click" FontSize="18" Style="{StaticResource MaterialDesignFlatButton}">
+                        Доплаты
+                    </Button>
+
+                    <Button x:Name="OrdersButton" Click="OrdersButton_Click" FontSize="18" Style="{StaticResource MaterialDesignFlatButton}">
+                        Заказы
+                    </Button>
+
+                    <Button x:Name="ProductsButton" Click="ProductsButton_Click" FontSize="18" Style="{StaticResource MaterialDesignFlatButton}">
+                        Продукция
+                    </Button>
+
+                    <Button x:Name="WorkshopsProductsButton" Click="WorkshopsProductsButton_Click" FontSize="18" Style="{StaticResource MaterialDesignFlatButton}">
+                        Производимая продукция в цехах
+                    </Button>
+
+                    <Button x:Name="EmployeesButton" Click="EmployeesButton_Click"  FontSize="18" Style="{StaticResource MaterialDesignFlatButton}">
+                        Сотрудники
+                    </Button>
+
+                    <Button x:Name="WorkshopsButton" Click="WorkshopsButton_Click"  FontSize="18" Style="{StaticResource MaterialDesignFlatButton}">
+                        Цеха
+                    </Button>
+                </StackPanel>
+            </materialDesign:DrawerHost.LeftDrawerContent>
+            <!--Left menu-->
+
+            <StackPanel>
+                <Menu FontSize="16" IsMainMenu="True" DockPanel.Dock="Left">
+                    <Menu.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <DockPanel HorizontalAlignment="Stretch"/>
+                        </ItemsPanelTemplate>
+                    </Menu.ItemsPanel>
+
+                    <ToggleButton
+                            Foreground="White"
+                            IsChecked="{Binding ElementName=MenuHideButton,Path=IsChecked}"
+                            Style="{StaticResource MaterialDesignHamburgerToggleButton}"
+                            Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}"
+                            CommandParameter="{x:Static Dock.Left}" >
+                        <materialDesign:PackIcon  Kind="ArrowLeft" />
+                    </ToggleButton>
+                    <MenuItem Header="Меню" Name="MenuButton" Foreground="{DynamicResource MaterialDesignPaper}">
+                        <MenuItem Header="Обновить базу данных" Name="UpdateDB" Click="UpdateDB_Click">
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="Restore" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Сохранить изменения" Name="SaveDB" Click="SaveDB_Click">
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon
+                                    Kind="ContentSaveAll" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator />
+                        <MenuItem x:Name="ExitButton" Header="Выход" Click="ExitButton_Click">
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="ExitToApp" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem FontSize="20" Foreground="{DynamicResource MaterialDesignPaper}"                                                    
+                           HorizontalAlignment="Right" IsEnabled="False" FontFamily="Regular"
+                           Opacity="1" Header ="{Binding CurrentPage}">
+                    </MenuItem>
+                    <Menu.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#cd50f0" Offset="0.0" />
+                            <GradientStop Color="#5726f5" Offset="0.6" />
+                        </LinearGradientBrush>
+                    </Menu.Background>
+                </Menu>
+                <TabControl x:Name="tabCntrl">
+                    <TabItem Name="EmployeesGrid" Visibility="Hidden">
+                        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Employees}" CanUserAddRows="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Имя" Binding="{Binding Имя}"/>
+                                <DataGridTextColumn Header="Фамилия" Binding="{Binding Имя}"/>
+                                <DataGridTextColumn Header="Отчество" Binding="{Binding Имя}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem Name="PositionsGrid" Visibility="Hidden">
+                        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Employees}" CanUserAddRows="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Имя" Binding="{Binding Имя}"/>
+                                <DataGridTextColumn Header="Фамилия" Binding="{Binding Имя}"/>
+                                <DataGridTextColumn Header="Отчество" Binding="{Binding Имя}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem Name="PaymentsGrid" Visibility="Hidden">
+                        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Employees}" CanUserAddRows="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Имя" Binding="{Binding Имя}"/>
+                                <DataGridTextColumn Header="Фамилия" Binding="{Binding Имя}"/>
+                                <DataGridTextColumn Header="Отчество" Binding="{Binding Имя}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem Name="OrdersGrid" Visibility="Hidden">
+                        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Employees}" CanUserAddRows="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Имя" Binding="{Binding Имя}"/>
+                                <DataGridTextColumn Header="Фамилия" Binding="{Binding Имя}"/>
+                                <DataGridTextColumn Header="Отчество" Binding="{Binding Имя}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem Name="ProductsGrid" Visibility="Hidden">
+                        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Employees}" CanUserAddRows="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Имя" Binding="{Binding Имя}"/>
+                                <DataGridTextColumn Header="Фамилия" Binding="{Binding Имя}"/>
+                                <DataGridTextColumn Header="Отчество" Binding="{Binding Имя}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem Name="WorkshopsProductsGrid" Visibility="Hidden">
+                        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Employees}" CanUserAddRows="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Имя" Binding="{Binding Имя}"/>
+                                <DataGridTextColumn Header="Фамилия" Binding="{Binding Имя}"/>
+                                <DataGridTextColumn Header="Отчество" Binding="{Binding Имя}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem Name="WorkshopsGrid" Visibility="Hidden">
+                        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Employees}" CanUserAddRows="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Имя" Binding="{Binding Имя}"/>
+                                <DataGridTextColumn Header="Фамилия" Binding="{Binding Имя}"/>
+                                <DataGridTextColumn Header="Отчество" Binding="{Binding Имя}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                </TabControl>
+            </StackPanel>
+        </materialDesign:DrawerHost>
+    </Grid>
+</Window>
