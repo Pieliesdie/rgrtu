@@ -2,9 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Threading;
 
 namespace TyagPressMashClientApp
@@ -12,20 +14,14 @@ namespace TyagPressMashClientApp
     public partial class MainWindow : Window
     {
         ModelContext db;
-        public BindingList<Должности> Positions { get; set; }
-        public BindingList<Доплаты> Payments { get; set; }
-        public BindingList<Заказы> Orders { get; set; }
-        public BindingList<Продукция> Products { get; set; }
-        public BindingList<ПродукцияЦехов> WorkshopsProducts { get; set; }
-        public BindingList<Сотрудники> Employees { get; set; }
-        public BindingList<Цеха> Workshops { get; set; }
-
-        public string CurrentPage { get; set; } = "Сотрудники";
+        public BDViewModel BDViewModel { get; set; }
+        public StringContainer CurrentPage { get; set; } = new StringContainer() { Value = "Сотрудники" };
 
         public MainWindow()
         {
             SplashScreen ss = new SplashScreen("Images/Splash.png");
             ss.Show(false);
+            BDViewModel = new BDViewModel();
             if (!Startup())
                 this.Close();
             InitializeComponent();
@@ -56,13 +52,13 @@ namespace TyagPressMashClientApp
             db.ПродукцияЦехов.Load();
             db.Сотрудники.Load();
             db.Цеха.Load();
-            Positions = db.Должности.Local.ToBindingList();
-            Payments = db.Доплаты.Local.ToBindingList();
-            Orders = db.Заказы.Local.ToBindingList();
-            Products = db.Продукция.Local.ToBindingList();
-            WorkshopsProducts = db.ПродукцияЦехов.Local.ToBindingList();
-            Employees = db.Сотрудники.Local.ToBindingList();
-            Workshops = db.Цеха.Local.ToBindingList();
+            BDViewModel.Positions = new ObservableCollection<Должности>(db.Должности.Local.ToBindingList());
+            BDViewModel.Payments = new ObservableCollection<Доплаты>(db.Доплаты.Local.ToBindingList());
+            BDViewModel.Orders = new ObservableCollection<Заказы> (db.Заказы.Local.ToBindingList());
+            BDViewModel.Products = new ObservableCollection<Продукция> (db.Продукция.Local.ToBindingList());
+            BDViewModel.WorkshopsProducts = new ObservableCollection<ПродукцияЦехов> (db.ПродукцияЦехов.Local.ToBindingList());
+            BDViewModel.Employees = new ObservableCollection<Сотрудники> (db.Сотрудники.Local.ToBindingList());
+            BDViewModel.Workshops = new ObservableCollection<Цеха>( db.Цеха.Local.ToBindingList());
             return true;
         }
 
@@ -79,47 +75,27 @@ namespace TyagPressMashClientApp
 
         private void UpdateDB_Click(object sender, RoutedEventArgs e)
         {
-
+            Startup();
         }
 
-        private void SaveDB_Click(object sender, RoutedEventArgs e)
+        private async void SaveDB_Click(object sender, RoutedEventArgs e)
         {
-
+            await db.SaveChangesAsync();
+            MessageBox.Show("Изменения сохранены");
         }
 
-        private void PositionsButton_Click(object sender, RoutedEventArgs e)
-        {
+        private void PositionsButton_Click(object sender, RoutedEventArgs e) { tabCntrl.SelectedItem = PositionsGrid; CurrentPage.Value = "Должности"; }
 
-        }
+        private void PaymentsButton_Click(object sender, RoutedEventArgs e) { tabCntrl.SelectedItem = PaymentsGrid; CurrentPage.Value = "Доплаты"; }
 
-        private void PaymentsButton_Click(object sender, RoutedEventArgs e)
-        {
+        private void OrdersButton_Click(object sender, RoutedEventArgs e) { tabCntrl.SelectedItem = OrdersGrid; CurrentPage.Value = "Заказы"; }
 
-        }
+        private void ProductsButton_Click(object sender, RoutedEventArgs e) { tabCntrl.SelectedItem = ProductsGrid; CurrentPage.Value = "Продукция"; }
 
-        private void OrdersButton_Click(object sender, RoutedEventArgs e)
-        {
+        private void WorkshopsProductsButton_Click(object sender, RoutedEventArgs e) { tabCntrl.SelectedItem = WorkshopsProductsGrid; CurrentPage.Value = "Производство в цехах"; }
 
-        }
+        private void EmployeesButton_Click(object sender, RoutedEventArgs e) { tabCntrl.SelectedItem = EmployeesGrid; CurrentPage.Value = "Сотрудники"; }
 
-        private void ProductsButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void WorkshopsProductsButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void EmployeesButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void WorkshopsButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        private void WorkshopsButton_Click(object sender, RoutedEventArgs e) { tabCntrl.SelectedItem = WorkshopsGrid; CurrentPage.Value = "Цеха"; }
     }
 }

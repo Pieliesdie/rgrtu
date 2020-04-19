@@ -195,6 +195,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DBModel\BDViewModel.cs" />
     <Compile Include="Settings\AppSettings.cs" />
     <Compile Include="DBModel\ModelContext.cs" />
     <Compile Include="DBModel\Должности.cs" />
@@ -204,6 +205,8 @@
     <Compile Include="DBModel\ПродукцияЦехов.cs" />
     <Compile Include="DBModel\Сотрудники.cs" />
     <Compile Include="DBModel\Цеха.cs" />
+    <Compile Include="DBModel\ViewModelBase.cs" />
+    <Compile Include="StringContainer.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
