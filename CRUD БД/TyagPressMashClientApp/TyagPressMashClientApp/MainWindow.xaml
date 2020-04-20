@@ -237,19 +237,107 @@
 
                     <!--Таблица заказов-->
                     <TabItem Name="OrdersGrid" Visibility="Hidden">
+                        <DataGrid IsEnabled="{Binding ElementName=OrdersGrid,Path=IsSelected}" VerticalScrollBarVisibility="Auto" AutoGenerateColumns="False" ItemsSource="{Binding BDViewModel.Orders}" CanUserAddRows="True" IsReadOnly="{Binding IsUpdating.Value}">
+                            <DataGrid.Columns>
+                                <materialDesign:DataGridComboBoxColumn
+                                                                       Header="Ответственный"
+                                                                       SelectedValuePath="Код"
+                                                                       SelectedValueBinding="{Binding Ответственный,UpdateSourceTrigger=PropertyChanged}"
+                                                                       ItemsSourceBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.BDViewModel.Employees}" />
+                                <DataGridTemplateColumn Header="Оформлен" SortMemberPath="Оформлен">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Оформлен,StringFormat=\{0:dd.MM.yy\}}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                    <DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataTemplate>
+                                            <DatePicker SelectedDate ="{Binding Оформлен,UpdateSourceTrigger=PropertyChanged}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellEditingTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Срок" SortMemberPath="Срок">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Срок,StringFormat=\{0:dd.MM.yy\}}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                    <DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataTemplate>
+                                            <DatePicker SelectedDate ="{Binding Срок,UpdateSourceTrigger=PropertyChanged}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellEditingTemplate>
+                                </DataGridTemplateColumn>
+                                <materialDesign:DataGridComboBoxColumn
+                                                                       Header="Цех"
+                                                                       SelectedValuePath="Код"
+                                                                       SelectedValueBinding="{Binding Цех,UpdateSourceTrigger=PropertyChanged}"
+                                                                       ItemsSourceBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.BDViewModel.Workshops}" />
+                                <materialDesign:DataGridComboBoxColumn
+                                                                       Header="Продукт"
+                                                                       SelectedValuePath="Код"
+                                                                       SelectedValueBinding="{Binding Продукт,UpdateSourceTrigger=PropertyChanged}"
+                                                                       ItemsSourceBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.BDViewModel.Products}" />
 
+                            </DataGrid.Columns>
+                        </DataGrid>
                     </TabItem>
                     <!--Таблица заказов-->
 
+                    <!--Таблица продукции-->
                     <TabItem Name="ProductsGrid" Visibility="Hidden">
-
+                        <DataGrid IsEnabled="{Binding ElementName=ProductsGrid,Path=IsSelected}" VerticalScrollBarVisibility="Auto" AutoGenerateColumns="False" ItemsSource="{Binding BDViewModel.Products}" CanUserAddRows="True" IsReadOnly="{Binding IsUpdating.Value}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn  Header="Наименование" Binding="{Binding Наименование,UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn  Header="Описание" Binding="{Binding Описание,UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn  Header="Стоимость" Binding="{Binding Стоимость,UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
                     </TabItem>
+                    <!--Таблица продукции-->
+
+                    <!--Таблица продукции в цехах-->
                     <TabItem Name="WorkshopsProductsGrid" Visibility="Hidden">
-
+                        <DataGrid IsEnabled="{Binding ElementName=WorkshopsProductsGrid,Path=IsSelected}" VerticalScrollBarVisibility="Auto" AutoGenerateColumns="False" ItemsSource="{Binding BDViewModel.WorkshopsProducts}" CanUserAddRows="True" IsReadOnly="{Binding IsUpdating.Value}">
+                            <DataGrid.Columns>
+                                <materialDesign:DataGridComboBoxColumn Width="*"
+                                                                       Header="Цех"
+                                                                       SelectedValuePath="Код"
+                                                                       SelectedValueBinding="{Binding Цех,UpdateSourceTrigger=PropertyChanged}"
+                                                                       ItemsSourceBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.BDViewModel.Workshops}" />
+                                <materialDesign:DataGridComboBoxColumn  Width="*" Header="Продукт"
+                                                                       SelectedValuePath="Код"
+                                                                       SelectedValueBinding="{Binding Продукт,UpdateSourceTrigger=PropertyChanged}"                                                                    
+                                                                       ItemsSourceBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.BDViewModel.Products}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
                     </TabItem>
+                    <!--Таблица продукции в цехах-->
+
+                    <!--Таблица цехов-->
                     <TabItem Name="WorkshopsGrid" Visibility="Hidden">
-
+                        <DataGrid IsEnabled="{Binding ElementName=WorkshopsGrid,Path=IsSelected}" VerticalScrollBarVisibility="Auto" AutoGenerateColumns="False" ItemsSource="{Binding BDViewModel.Workshops}" CanUserAddRows="True" IsReadOnly="{Binding IsUpdating.Value}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Название" Binding="{Binding Название,UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridCheckBoxColumn Header="Вредность" Binding="{Binding Вредность}" ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}" EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}">
+                                    <DataGridCheckBoxColumn.HeaderStyle>
+                                        <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="ContentTemplate">
+                                                <Setter.Value>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                                    </DataTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </DataGridCheckBoxColumn.HeaderStyle>
+                                </DataGridCheckBoxColumn>
+                                <DataGridTextColumn Header="Телефон" Binding="{Binding Телефон,UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
                     </TabItem>
+                    <!--Таблица цехов-->
                 </TabControl>
             </DockPanel>
         </materialDesign:DrawerHost>

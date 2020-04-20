@@ -16,6 +16,11 @@ namespace TyagPressMashClientApp
         public string Описание { get; set; }
         public decimal? Стоимость { get; set; }
 
+        public override string ToString()
+        {
+            return Наименование;
+        }
+
         public virtual ICollection<Заказы> Заказы { get; set; }
         public virtual ICollection<ПродукцияЦехов> ПродукцияЦехов { get; set; }
     }
