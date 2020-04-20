@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace TyagPressMashClientApp
 {
-    public partial class Заказы : IHavingPrimaryKey
-    {
+    public partial class Заказы
+    { 
         public int Код { get; set; }
         public int Ответственный { get; set; }
         public DateTime? Оформлен { get; set; }

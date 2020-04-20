@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TyagPressMashClientApp
 {
-    public partial class Должности:IHavingPrimaryKey
+    public partial class Должности
     {
         public Должности()
         {
