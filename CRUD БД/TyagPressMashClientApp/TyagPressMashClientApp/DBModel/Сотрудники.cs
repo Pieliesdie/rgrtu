@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TyagPressMashClientApp
 {
-    public partial class Сотрудники
+    public partial class Сотрудники : IHavingPrimaryKey
     {
         public Сотрудники()
         {
@@ -23,6 +23,11 @@ namespace TyagPressMashClientApp
         public DateTime? ДатаЗаключенияДоговора { get; set; }
         public int? Цех { get; set; }
         public int? Должность { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Фамилия} {Имя} {Отчество}";
+        }
 
         public virtual Должности ДолжностьNavigation { get; set; }
         public virtual Цеха ЦехNavigation { get; set; }

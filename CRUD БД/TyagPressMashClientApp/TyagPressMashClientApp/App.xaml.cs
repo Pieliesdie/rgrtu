@@ -1,5 +1,4 @@
-﻿using ShowMeTheXAML;
-using System.Windows;
+﻿using System.Windows;
 
 namespace TyagPressMashClientApp
 {
@@ -8,10 +7,5 @@ namespace TyagPressMashClientApp
     /// </summary>
     public partial class App : Application
     {
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            XamlDisplay.Init();
-            base.OnStartup(e);
-        }
     }
 }

@@ -17,7 +17,7 @@ namespace TPRLibrary
 
         public double[,] values => matrix.To2DArray();
 
-        Matrix ReadFromCsv(string path)
+        public static Matrix ReadFromCsv(string path)
         {
             var csv = File
                     .ReadAllLines(path)
@@ -199,16 +199,16 @@ namespace TPRLibrary
             var resultMatrix = matrix.Clone();
 
             IsDeleted = false;
-            for (int i = 0; i < matrix.ColumnCount; i++) // перебираем столбцы 
+            for (int i = 0; i < matrix.ColumnCount; i++) 
             {
-                var column = matrix.Column(i);              // столбец который хотим сравнивать
+                var column = matrix.Column(i);             
 
-                for (int j = 0; j < matrix.ColumnCount; j++) // сравниваем со всеми остальными
+                for (int j = 0; j < matrix.ColumnCount; j++) 
                 {
-                    if (i == j) // два одинаковых выходим
+                    if (i == j) 
                         continue;
                     bool isDeletingColumn = true;
-                    var anotherColumn = matrix.Column(j); // берем след столбец
+                    var anotherColumn = matrix.Column(j); 
 
                     for (int k = 0; k < column.Count; k++)
                     {
@@ -233,7 +233,7 @@ namespace TPRLibrary
                     if (isDeletingColumn)
                     {
                         resultMatrix.RemoveColumn(j);
-                        Logger?.Invoke($"столбец {i+1} над {j+1}");// удалить
+                        Logger?.Invoke($"столбец {i+1} над {j+1}");
                         IsDeleted = true;
                         return resultMatrix;
                     }

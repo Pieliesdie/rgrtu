@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TyagPressMashClientApp
 {
-    public partial class Заказы
+    public partial class Заказы : IHavingPrimaryKey
     {
         public int Код { get; set; }
         public int Ответственный { get; set; }

@@ -4,9 +4,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"     
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesignColors="clr-namespace:MaterialDesignColors;assembly=MaterialDesignColors"
         xmlns:local="clr-namespace:WPF_Lab2_TPR"
         mc:Ignorable="d"
-        Title="Критерии" Height="520" Width="800"
+        Title="Критерии" Height="625" Width="800"
         WindowStartupLocation="CenterScreen"
         Icon="icons8_list.ico"
          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -20,17 +21,26 @@
         >
     <DockPanel LastChildFill ="True">
         <StackPanel DockPanel.Dock="Left" Width="200">
-            <Button             
-                FontSize="13"
-                 Margin="13"  Height="32" Width="174" Click="Button_Click" Padding="0">
+            <Button FontSize="13" Margin="13,13,13,13"  Height="32" Width="174" Click="ReadMatrix" Padding="0">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="icons8_ms_excel.ico" Width="30" Height="30" HorizontalAlignment="Center"/>
                     <TextBlock Text="Считать матрицу" VerticalAlignment="Center" />
                 </StackPanel>
             </Button>
-            <CheckBox x:Name="GrumblerCheckbox"  FontSize="18" Content="Азартный игрок" VerticalContentAlignment="Center" Margin="15,-0,5,0"></CheckBox>
-            <CheckBox x:Name="MaxminCheckbox"  FontSize="18" Content="Максиминный" VerticalContentAlignment="Center" Margin="15,-0,0,0"></CheckBox>
-            <CheckBox x:Name="GurvicCheckbox"  FontSize="18" Content="Гурвиц" VerticalContentAlignment="Center" Margin="15,-0,0,0"></CheckBox>
+
+            <Separator/>
+
+            <Button Margin="13,13,13,0" Content="Редукция"  Height="30" Width="173" Click="Reduction"/>
+            <CheckBox x:Name="Reductioncheckbox"  FontSize="18" Content="Строгая" VerticalContentAlignment="Center" Margin="15,-0,0,0"/>
+
+            <Separator/>
+
+            <Label Width="173" HorizontalContentAlignment="Center" FontSize="18" FontWeight="Bold" FontStyle="Normal">
+                Критерии
+            </Label>
+            <CheckBox x:Name="GrumblerCheckbox"  FontSize="18" Content="Азартный игрок" VerticalContentAlignment="Center" Margin="15,-0,5,0"/>
+            <CheckBox x:Name="MaxminCheckbox"  FontSize="18" Content="Максиминный" VerticalContentAlignment="Center" Margin="15,-0,0,0"/>
+            <CheckBox x:Name="GurvicCheckbox"  FontSize="18" Content="Гурвиц" VerticalContentAlignment="Center" Margin="15,-0,0,0"/>
 
             <TextBox x:Name="gurvicTextbox" MaxWidth="200" FontSize="16" Margin="15,-0,15,12"
                      VerticalContentAlignment="Top"
@@ -58,14 +68,11 @@
                 </TextBox.Style>
             </TextBox>
 
-            <CheckBox x:Name="SevidgeCheckbox"  FontSize="18" Content="Сэвидж" VerticalContentAlignment="Center" Margin="15,-0,0,0"></CheckBox>
-            <CheckBox x:Name="BaiesCheckbox"  FontSize="18" Content="Байес" VerticalContentAlignment="Center" Margin="15,-0,0,0"></CheckBox>
+            <CheckBox x:Name="SevidgeCheckbox"  FontSize="18" Content="Сэвидж" VerticalContentAlignment="Center" Margin="15,-0,0,0"/>
+            <CheckBox x:Name="BaiesCheckbox"  FontSize="18" Content="Байес" VerticalContentAlignment="Center" Margin="15,-0,0,0"/>
 
-            <DataGrid Margin="15,-0,15,0"
-                         
-                      ItemsSource="{Binding psForBaies, Mode=TwoWay, 
-                        UpdateSourceTrigger=PropertyChanged, 
-                        Delay=250}"
+            <DataGrid Margin="15,-0,15,0"                       
+                      ItemsSource="{Binding psForBaies, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=250}"
                       x:Name="baiesDatagrid"
                       MaxHeight="200"
                       AutoGenerateColumns="False"
@@ -78,7 +85,7 @@
      >
                 <DataGrid.Style>
                     <Style TargetType="DataGrid">
-                        
+
                         <Setter Property="Visibility" Value="Collapsed" />
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsChecked, ElementName=BaiesCheckbox}" Value="True">
@@ -128,15 +135,15 @@
                 </DataGrid.CellStyle>
             </DataGrid>
 
-            <CheckBox x:Name="LaplasCheckbox"  FontSize="18" Content="Лаплас" VerticalContentAlignment="Center" Margin="15,-0,0,0"></CheckBox>
-            <CheckBox x:Name="HodjesCheckbox"  FontSize="18" Content="Ходжес-Леман" VerticalContentAlignment="Center" Margin="15,-0,0,0"></CheckBox>
-            
+            <CheckBox x:Name="LaplasCheckbox"  FontSize="18" Content="Лаплас" VerticalContentAlignment="Center" Margin="15,-0,0,0"/>
+            <CheckBox x:Name="HodjesCheckbox"  FontSize="18" Content="Ходжес-Леман" VerticalContentAlignment="Center" Margin="15,-0,0,0"/>
+
             <StackPanel Margin="15,-0,15,0">
                 <TextBox x:Name="HodjesTextBox" MaxWidth="200" FontSize="16" 
                           materialDesign:HintAssist.Hint="Уровень доверия"
                           VerticalContentAlignment="Top"
-                     HorizontalContentAlignment="Center"
-                         Margin="0,0,0,17">
+                          HorizontalContentAlignment="Center"
+                          Margin="0,0,0,17">
 
                     <Binding Path="HodjesP.value"
                         Mode="TwoWay" 
@@ -146,7 +153,7 @@
                             <DataErrorValidationRule />
                         </Binding.ValidationRules>
                     </Binding>
-                    
+
                     <TextBox.Style>
                         <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
                             <Setter Property="Visibility" Value="Collapsed" />
@@ -226,12 +233,8 @@
             </StackPanel>
 
             <Button  Content="Вычислить" Margin="13"  Height="32" Width="174" Click="Button_Click_1"/>
-
         </StackPanel>
-
-
-        <TextBox x:Name="textBox" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" DockPanel.Dock="Bottom" MaxHeight="250" MinHeight="193" IsReadOnly="True" FontSize="14" ></TextBox>
-
+        <TextBox x:Name="textBox" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" DockPanel.Dock="Bottom" MaxHeight="250" MinHeight="193" IsReadOnly="True" FontSize="18"/>
         <dg2d:DataGrid2D x:Name="dataGrid"                        
                   Background="{DynamicResource MaterialDesignPaper}"
                   HeadersVisibility="None" 

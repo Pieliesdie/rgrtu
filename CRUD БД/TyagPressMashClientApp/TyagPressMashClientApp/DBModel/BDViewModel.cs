@@ -1,23 +1,23 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.ComponentModel;
 
 namespace TyagPressMashClientApp
 {
     public class BDViewModel : ViewModelBase
     {
-        private ObservableCollection<Должности> positions;
-        private ObservableCollection<Доплаты> payments;
-        private ObservableCollection<Заказы> orders;
-        private ObservableCollection<Продукция> products;
-        private ObservableCollection<ПродукцияЦехов> workshopsProducts;
-        private ObservableCollection<Сотрудники> employees;
-        private ObservableCollection<Цеха> workshops;
+        private BindingList<Должности> positions;
+        private BindingList<Доплаты> payments;
+        private BindingList<Заказы> orders;
+        private BindingList<Продукция> products;
+        private BindingList<ПродукцияЦехов> workshopsProducts;
+        private BindingList<Сотрудники> employees;
+        private BindingList<Цеха> workshops;
 
-        public ObservableCollection<Должности> Positions { get => positions; set { positions = value; OnPropertyChanged("Positions"); } }
-        public ObservableCollection<Доплаты> Payments { get => payments; set { payments = value; OnPropertyChanged("Payments"); } }
-        public ObservableCollection<Заказы> Orders { get => orders; set { orders = value; OnPropertyChanged("Orders"); } }
-        public ObservableCollection<Продукция> Products { get => products; set { products = value; OnPropertyChanged("Products"); } }
-        public ObservableCollection<ПродукцияЦехов> WorkshopsProducts { get => workshopsProducts; set { workshopsProducts = value; OnPropertyChanged("WorkshopsProducts"); } }
-        public ObservableCollection<Сотрудники> Employees { get => employees; set { employees = value; OnPropertyChanged("Employees"); } }
-        public ObservableCollection<Цеха> Workshops { get => workshops; set { workshops = value; OnPropertyChanged("Workshops"); } }
+        public BindingList<Должности> Positions { get => positions; set { positions = value; OnPropertyChanged("Positions"); } }
+        public BindingList<Доплаты> Payments { get => payments; set { payments = value; OnPropertyChanged("Payments"); } }
+        public BindingList<Заказы> Orders { get => orders; set { orders = value; OnPropertyChanged("Orders"); } }
+        public BindingList<Продукция> Products { get => products; set { products = value; OnPropertyChanged("Products"); } }
+        public BindingList<ПродукцияЦехов> WorkshopsProducts { get => workshopsProducts; set { workshopsProducts = value; OnPropertyChanged("WorkshopsProducts"); } }
+        public BindingList<Сотрудники> Employees { get => employees; set { employees = value; OnPropertyChanged("Employees"); } }
+        public BindingList<Цеха> Workshops { get => workshops; set { workshops = value; OnPropertyChanged("Workshops"); } }
     }
 }

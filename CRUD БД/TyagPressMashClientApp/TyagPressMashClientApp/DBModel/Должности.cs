@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TyagPressMashClientApp
 {
-    public partial class Должности
+    public partial class Должности:IHavingPrimaryKey
     {
         public Должности()
         {
@@ -15,6 +15,11 @@ namespace TyagPressMashClientApp
         public DateTime? ВремяСоздания { get; set; }
         public bool Опасность { get; set; }
         public decimal? Оклад { get; set; }
+
+        public override string ToString()
+        {
+            return Название;
+        }
 
         public virtual ICollection<Сотрудники> Сотрудники { get; set; }
     }

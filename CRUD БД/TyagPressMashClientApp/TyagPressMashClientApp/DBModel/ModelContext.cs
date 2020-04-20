@@ -30,7 +30,7 @@ namespace TyagPressMashClientApp
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseJet("Provider=Microsoft.Jet.OLEDB.4.0;;Data Source=TyagPressMash.mdb;");
+                optionsBuilder.UseJet("Provider=Microsoft.Jet.OLEDB.4.0;;Data Source=E:\\DataBase\\TyagPressMash.mdb;");
             }
         }
 

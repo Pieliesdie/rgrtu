@@ -35,7 +35,7 @@ namespace WPF_Lab2_TPR
             psForHodjes = new ObservableCollection<Probability>();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ReadMatrix(object sender, RoutedEventArgs e)
         {
             textBox.Text = string.Empty;
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -103,6 +103,11 @@ namespace WPF_Lab2_TPR
             textBox.AppendText($"Стоит выбрать стратегию : {results.GroupBy(x => x.methodValue.row).OrderByDescending(x => x.Count()).FirstOrDefault()?.FirstOrDefault().methodValue.row + 1}\n");
         }
 
+        private void Reduction(object sender, RoutedEventArgs e)
+        {
+            textBox.Text = string.Empty;
+            dataGrid.ItemsSource2D = matrix?.Reduction(Reductioncheckbox.IsChecked ?? false).values; 
+        }
     }
 
 }
