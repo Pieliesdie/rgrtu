@@ -1,0 +1,52 @@
+﻿<Window x:Class="Курсовая.GIS.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Курсовая.GIS"
+        mc:Ignorable="d"
+        Title="BMP Secret" Height="420" Width="800">
+    <Grid>
+        <TabControl>
+            <TabItem MinWidth="50" MinHeight="25" Header="Encrypt">
+                <StackPanel Margin="25">
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <Button Height="25" x:Name="PrivateKeyLoadButton" Click="PrivateKeyLoadButton_Click">Path to private key</Button>
+                        <Label Content="{Binding PrivateKeyPath.Value, UpdateSourceTrigger=PropertyChanged}" ></Label>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <Button Height="25" x:Name="BMPLoadButton" Click="BMPLoadButton_Click" >Path to BMP</Button>
+                        <Label Content="{Binding BMPPath.Value, UpdateSourceTrigger=PropertyChanged}" ></Label>
+                    </StackPanel>
+
+                    <Label HorizontalAlignment="Center">Message to ecnrypt</Label>
+                    <TextBox x:Name="MessageToEncryptTextBox" MinHeight="100" ></TextBox>
+
+                    <Button Margin="5" Height="25" x:Name="SavePublicKeyButton" Click="SavePublicKeyButton_Click"  HorizontalAlignment="Right">Save public key</Button>
+
+                    <Button Margin="5" Height="25" x:Name="SaveMessageToBmpButton" Click="SaveMessageToBmpButton_Click" HorizontalAlignment="Right">Add message to bmp</Button>
+                </StackPanel>
+            </TabItem>
+
+            <TabItem MinWidth="60" MinHeight="25" Header="Decrypt">
+                <StackPanel Margin="25">
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <Button Height="25" x:Name="PathToPublicKeyButton" Click="PathToPublicKeyButton_Click">Path to public key</Button>
+                        <Label Content="{Binding PublicKeyPath.Value, UpdateSourceTrigger=PropertyChanged}" ></Label>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <Button Height="25" x:Name="BMPLoadButton2" Click="BMPLoadButton_Click" >Path to BMP</Button>
+                        <Label Content="{Binding BMPPath.Value, UpdateSourceTrigger=PropertyChanged}" ></Label>
+                    </StackPanel>
+
+                    <Label HorizontalAlignment="Center">Decrypted message</Label>
+                    <TextBox x:Name="DecryptedMessageTextBox" MinHeight="100" IsReadOnly="True"></TextBox>
+
+                    <Button Height="25" x:Name="DecryptButton" Click="DecryptButton_Click" HorizontalAlignment="Right">Decrypt message from bmp</Button>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
