@@ -10,8 +10,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPF_Lab2_TPR", "WPF_Lab2_TP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TPRLibrary", "TPRLibrary\TPRLibrary.csproj", "{ED0B1B0D-D48D-40EF-8EB2-CEFDD8DEBB11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benchmark", "Benchmark\Benchmark.csproj", "{21FBE973-FB13-4A49-A143-0E226DFD22B9}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,10 +24,6 @@ Global
 		{ED0B1B0D-D48D-40EF-8EB2-CEFDD8DEBB11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED0B1B0D-D48D-40EF-8EB2-CEFDD8DEBB11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED0B1B0D-D48D-40EF-8EB2-CEFDD8DEBB11}.Release|Any CPU.Build.0 = Release|Any CPU
-		{21FBE973-FB13-4A49-A143-0E226DFD22B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{21FBE973-FB13-4A49-A143-0E226DFD22B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{21FBE973-FB13-4A49-A143-0E226DFD22B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{21FBE973-FB13-4A49-A143-0E226DFD22B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

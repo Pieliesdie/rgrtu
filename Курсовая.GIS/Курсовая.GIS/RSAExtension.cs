@@ -6,11 +6,17 @@ using System.Security.Cryptography;
 using System.Numerics;
 using System.Text.RegularExpressions;
 using System.IO;
+using Org.BouncyCastle.OpenSsl;
+using Org.BouncyCastle.Crypto;
+using Org.BouncyCastle.Security;
+using Org.BouncyCastle.Crypto.Parameters;
 
 namespace Курсовая.GIS
 {
     public static class RSAExtension
     {
+        private static UnicodeEncoding encoder { get; set; } = new UnicodeEncoding();
+
         public static byte[] PrivareEncryption(this RSACryptoServiceProvider rsa, byte[] data)
         {
             if (data == null)
@@ -56,15 +62,28 @@ namespace Курсовая.GIS
             Array.Reverse(result);
             return result;
         }
-        public static void ImportPublicKeyFromPcksPEM(this RSACryptoServiceProvider rsa, string path) =>rsa.ImportRSAPublicKey(GetKeyFromFile(path),out _);
 
-        public static void ImportPrivateKeyFromPcksPEM(this RSACryptoServiceProvider rsa, string path) => rsa.ImportRSAPrivateKey(GetKeyFromFile(path), out _);
+        public static void ImportPublicKey(this RSACryptoServiceProvider csp, string pem)
+        {
+            using var file = new FileStream(pem, FileMode.Open);
+            using var sr = new StreamReader(file);
+            PemReader pr = new PemReader(sr);
+            AsymmetricKeyParameter publicKey = (AsymmetricKeyParameter)pr.ReadObject();
+            RSAParameters rsaParams = DotNetUtilities.ToRSAParameters((RsaKeyParameters)publicKey);
+            csp.ImportParameters(rsaParams);
+        }
 
-        public static string DecryptStringRSA(this RSACryptoServiceProvider rsa, byte[] source) => encoder.GetString(rsa.PublicDecryption(source));
+        public static void ImportPrivateKey(this RSACryptoServiceProvider csp,string pem)
+        {
+            using var file = new FileStream(pem, FileMode.Open);
+            using var sr = new StreamReader(file);
+            PemReader pr = new PemReader(sr);
+            AsymmetricCipherKeyPair KeyPair = (AsymmetricCipherKeyPair)pr.ReadObject();
+            RSAParameters rsaParams = DotNetUtilities.ToRSAParameters((RsaPrivateCrtKeyParameters)KeyPair.Private);
+            csp.ImportParameters(rsaParams);
+        }
 
-        public static byte[] EncryptStringRSA(this RSACryptoServiceProvider rsa, string source) => rsa.PrivareEncryption(encoder.GetBytes(source));
-
-        public static void ExportPublicKey(this RSACryptoServiceProvider csp, TextWriter outputStream)
+        public static void ExportPublicKey(this RSACryptoServiceProvider csp, string path)
         {
             var parameters = csp.ExportParameters(false);
             using (var stream = new MemoryStream())
@@ -106,6 +125,8 @@ namespace Курсовая.GIS
                     writer.Write(innerStream.GetBuffer(), 0, length);
                 }
 
+                using var file = new FileStream(path, FileMode.OpenOrCreate);
+                using var outputStream = new StreamWriter(file);
                 var base64 = Convert.ToBase64String(stream.GetBuffer(), 0, (int)stream.Length).ToCharArray();
                 outputStream.WriteLine("-----BEGIN PUBLIC KEY-----");
                 for (var i = 0; i < base64.Length; i += 64)
@@ -115,6 +136,10 @@ namespace Курсовая.GIS
                 outputStream.WriteLine("-----END PUBLIC KEY-----");
             }
         }
+
+        public static string DecryptStringRSA(this RSACryptoServiceProvider rsa, byte[] source) => encoder.GetString(rsa.PublicDecryption(source));
+
+        public static byte[] EncryptStringRSA(this RSACryptoServiceProvider rsa, string source) => rsa.PrivareEncryption(encoder.GetBytes(source));
 
         private static void EncodeLength(BinaryWriter stream, int length)
         {
@@ -173,22 +198,6 @@ namespace Курсовая.GIS
                     stream.Write(value[i]);
                 }
             }
-        }
-
-        private static UnicodeEncoding encoder { get; set; } = new UnicodeEncoding();
-
-        private static byte[] GetKeyFromFile(string path) => GetKeyFromText(File.ReadAllText(path));
-
-        private static byte[] GetKeyFromText(string privateKey)
-        {
-            privateKey = privateKey.Replace("-----BEGIN PUBLIC KEY-----", "");
-            privateKey = privateKey.Replace("-----END PUBLIC KEY-----", "");
-            privateKey = privateKey.Replace("-----BEGIN RSA PRIVATE KEY-----", "");
-            privateKey = privateKey.Replace("-----END RSA PRIVATE KEY-----", "");
-            privateKey = Regex.Replace(privateKey, @"\n", "");
-            privateKey = Regex.Replace(privateKey, @"\r", "");
-
-            return Convert.FromBase64String(privateKey);
         }
 
         private static BigInteger GetBig(byte[] data)
