@@ -21,7 +21,7 @@
                     </StackPanel>
 
                     <Label HorizontalAlignment="Center">Message to ecnrypt</Label>
-                    <TextBox x:Name="MessageToEncryptTextBox" MinHeight="100" ></TextBox>
+                    <TextBox TextWrapping="Wrap" AcceptsReturn="True" x:Name="MessageToEncryptTextBox" MinHeight="100" ></TextBox>
 
                     <Button Margin="5" Height="25" x:Name="SavePublicKeyButton" Click="SavePublicKeyButton_Click"  HorizontalAlignment="Right">Save public key</Button>
 
@@ -42,7 +42,7 @@
                     </StackPanel>
 
                     <Label HorizontalAlignment="Center">Decrypted message</Label>
-                    <TextBox x:Name="DecryptedMessageTextBox" MinHeight="100" IsReadOnly="True"></TextBox>
+                    <TextBox TextWrapping="Wrap" AcceptsReturn="True" x:Name="DecryptedMessageTextBox" MinHeight="100" IsReadOnly="True"></TextBox>
 
                     <Button Height="25" x:Name="DecryptButton" Click="DecryptButton_Click" HorizontalAlignment="Right">Decrypt message from bmp</Button>
                 </StackPanel>

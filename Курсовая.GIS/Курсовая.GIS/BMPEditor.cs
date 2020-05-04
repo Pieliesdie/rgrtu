@@ -23,10 +23,25 @@ namespace Курсовая.GIS
             var offset = BitConverter.ToInt32(bmp.Skip(10).Take(4).ToArray());
             var bitmapInfoSize = BitConverter.ToInt32(bmp.Skip(0xE).Take(4).ToArray());
 
-            var normalOffset = FileHeaderSize + bitmapInfoSize;
+            var normalOffset = FileHeaderSize + bitmapInfoSize + GetColorTableSize(bmp); 
             var secretLength = offset - normalOffset;
 
-            return bmp.Skip(FileHeaderSize + bitmapInfoSize).Take(secretLength).ToArray();
+            return bmp.Skip(normalOffset).Take(secretLength).ToArray();
+        }
+
+        private static int GetColorTableSize(byte[] bmp)
+        {
+            var bitmapInfoSize = BitConverter.ToInt32(bmp.Skip(0xE).Take(4).ToArray());
+            short bpp;
+            if (bitmapInfoSize == 12)
+            {
+                bpp = BitConverter.ToInt16(bmp.Skip(0x18).Take(2).ToArray());
+            }
+            else
+            {
+                bpp = BitConverter.ToInt16(bmp.Skip(0x1C).Take(2).ToArray());
+            }
+            return bpp <= 8 ? ((int)Math.Pow(2, bpp) * 4) : 0;
         }
 
         private static byte[] AddSecretToBmp(byte[] bmp, byte[] secret)
@@ -37,9 +52,9 @@ namespace Курсовая.GIS
             var offset = BitConverter.ToInt32(bmp.Skip(10).Take(4).ToArray());
             var pixels = bmp.Skip(offset);
             var bitmapInfoSize = BitConverter.ToInt32(bmp.Skip(0xE).Take(4).ToArray());
-
-            var newoffset = FileHeaderSize + bitmapInfoSize + secret.Length;
-            var newbfSize = FileHeaderSize + secret.Length + BitConverter.ToInt32(bmp.Skip(0xE).Take(4).ToArray()) + pixels.Count();
+            var colorTableSize = GetColorTableSize(bmp);
+            var newoffset = FileHeaderSize + bitmapInfoSize + secret.Length + colorTableSize;
+            var newbfSize = FileHeaderSize + secret.Length + BitConverter.ToInt32(bmp.Skip(0xE).Take(4).ToArray()) + colorTableSize + pixels.Count();
 
             var newBmp = new List<byte>();
 
@@ -47,7 +62,7 @@ namespace Курсовая.GIS
             newBmp.AddRange(BitConverter.GetBytes(newbfSize));
             newBmp.AddRange(bfReserved12);
             newBmp.AddRange(BitConverter.GetBytes(newoffset));
-            newBmp.AddRange(bmp.Skip(FileHeaderSize).Take(bitmapInfoSize));
+            newBmp.AddRange(bmp.Skip(FileHeaderSize).Take(bitmapInfoSize + colorTableSize));
             newBmp.AddRange(secret);
             newBmp.AddRange(pixels);
 
