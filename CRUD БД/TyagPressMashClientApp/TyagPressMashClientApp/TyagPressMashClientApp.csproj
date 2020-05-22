@@ -104,16 +104,14 @@
     </ApplicationDefinition>
     <Compile Include="DataGridComboBoxColumn.cs" />
     <Compile Include="DBModel\BDViewModel.cs" />
-    <Compile Include="DBModel\Образование.cs" />
-    <Compile Include="Settings\AppSettings.cs" />
     <Compile Include="DBModel\ModelContext.cs" />
+    <Compile Include="DBModel\Документы.cs" />
     <Compile Include="DBModel\Должности.cs" />
-    <Compile Include="DBModel\Доплаты.cs" />
-    <Compile Include="DBModel\Заказы.cs" />
-    <Compile Include="DBModel\Продукция.cs" />
-    <Compile Include="DBModel\ПродукцияЦехов.cs" />
+    <Compile Include="DBModel\Отпуска.cs" />
     <Compile Include="DBModel\Сотрудники.cs" />
-    <Compile Include="DBModel\Цеха.cs" />
+    <Compile Include="DBModel\Увольнения.cs" />
+    <Compile Include="DBModel\Цехи.cs" />
+    <Compile Include="Settings\AppSettings.cs" />
     <Compile Include="DBModel\ViewModelBase.cs" />
     <Compile Include="ValueContainer.cs" />
     <Page Include="MainWindow.xaml">
@@ -207,9 +205,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="TyagPressMash.mdb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Content Include="TyagPresMash.mdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

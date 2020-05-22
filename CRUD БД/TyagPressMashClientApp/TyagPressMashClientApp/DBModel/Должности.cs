@@ -12,15 +12,13 @@ namespace TyagPressMashClientApp
 
         public int Код { get; set; }
         public string Название { get; set; }
-        public DateTime? ВремяСоздания { get; set; }
-        public bool Опасность { get; set; }
-        public decimal? Оклад { get; set; }
+
+        public virtual ICollection<Сотрудники> Сотрудники { get; set; }
+
 
         public override string ToString()
         {
-            return Название;
+            return $"{Код} - {Название}";
         }
-
-        public virtual ICollection<Сотрудники> Сотрудники { get; set; }
     }
 }

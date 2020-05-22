@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Linq;
 using EntityFrameworkCore.Jet;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -18,19 +16,18 @@ namespace TyagPressMashClientApp
         {
         }
 
+        public virtual DbSet<Документы> Документы { get; set; }
         public virtual DbSet<Должности> Должности { get; set; }
-        public virtual DbSet<Доплаты> Доплаты { get; set; }
-        public virtual DbSet<Заказы> Заказы { get; set; }
-        public virtual DbSet<Продукция> Продукция { get; set; }
-        public virtual DbSet<ПродукцияЦехов> ПродукцияЦехов { get; set; }
+        public virtual DbSet<Отпуска> Отпуска { get; set; }
         public virtual DbSet<Сотрудники> Сотрудники { get; set; }
-        public virtual DbSet<Цеха> Цеха { get; set; }
+        public virtual DbSet<Увольнения> Увольнения { get; set; }
+        public virtual DbSet<Цехи> Цехи { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseJet("Provider=Microsoft.Jet.OLEDB.4.0;;Data Source=TyagPressMash.mdb;");
+                optionsBuilder.UseJet("Provider=Microsoft.Jet.OLEDB.4.0;Data Source = TyagPresMash.mdb;");
             }
         }
 
@@ -38,102 +35,54 @@ namespace TyagPressMashClientApp
         {
             modelBuilder.HasAnnotation("ProductVersion", "2.2.0-rtm-35687");
 
+            modelBuilder.Entity<Документы>(entity =>
+            {
+                entity.HasKey(e => e.Код)
+                    .HasName("PrimaryKey");
+
+                entity.Property(e => e.Инн)
+                    .HasColumnName("ИНН")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.НомерСотрудника).HasColumnName("Номер сотрудника");
+
+                entity.Property(e => e.СерияИНомерПаспорта)
+                    .HasColumnName("Серия и номер паспорта")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.Снилс)
+                    .HasColumnName("СНИЛС")
+                    .HasDefaultValueSql("0");
+
+                entity.HasOne(d => d.НомерСотрудникаNavigation)
+                    .WithMany(p => p.Документы)
+                    .HasForeignKey(d => d.НомерСотрудника)
+                    .HasConstraintName("СотрудникиТаблица1");
+            });
+
             modelBuilder.Entity<Должности>(entity =>
             {
                 entity.HasKey(e => e.Код)
                     .HasName("PrimaryKey");
 
-                entity.Property(e => e.ВремяСоздания).HasColumnName("Время создания");
-
                 entity.Property(e => e.Название).HasMaxLength(255);
-
-                entity.Property(e => e.Оклад)
-                    .HasColumnType("decimal(19, 0)")
-                    .HasDefaultValueSql("0");
-
-                entity.Property(e => e.Опасность)
-                    .IsRequired()
-                    .HasColumnType("bit")
-                    .HasDefaultValueSql("No");
             });
 
-            modelBuilder.Entity<Доплаты>(entity =>
+            modelBuilder.Entity<Отпуска>(entity =>
             {
                 entity.HasKey(e => e.Код)
                     .HasName("PrimaryKey");
 
-                entity.HasIndex(e => e.Сотрудник)
-                    .HasName("СотрудникиТаблица1");
+                entity.Property(e => e.КодСотрудника).HasColumnName("Код сотрудника");
 
-                entity.Property(e => e.Размер)
-                    .HasColumnType("decimal(19, 0)")
-                    .HasDefaultValueSql("0");
+                entity.Property(e => e.НачалоОтпуска).HasColumnName("Начало отпуска");
 
-                entity.HasOne(d => d.СотрудникNavigation)
-                    .WithMany(p => p.Доплаты)
-                    .HasForeignKey(d => d.Сотрудник)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("СотрудникиТаблица1");
-            });
+                entity.Property(e => e.ОкончаниеОтпуска).HasColumnName("Окончание отпуска");
 
-            modelBuilder.Entity<Заказы>(entity =>
-            {
-                entity.HasKey(e => e.Код)
-                    .HasName("PrimaryKey");
-
-                entity.HasOne(d => d.ОтветственныйNavigation)
-                    .WithMany(p => p.Заказы)
-                    .HasForeignKey(d => d.Ответственный)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                entity.HasOne(d => d.КодСотрудникаNavigation)
+                    .WithMany(p => p.Отпуска)
+                    .HasForeignKey(d => d.КодСотрудника)
                     .HasConstraintName("СотрудникиТаблица11");
-
-                entity.HasOne(d => d.ПродуктNavigation)
-                    .WithMany(p => p.Заказы)
-                    .HasForeignKey(d => d.Продукт)
-                    .HasConstraintName("ПродукцияЗаказы");
-
-                entity.HasOne(d => d.ЦехNavigation)
-                    .WithMany(p => p.Заказы)
-                    .HasForeignKey(d => d.Цех)
-                    .HasConstraintName("ЦехаЗаказы");
-            });
-
-            modelBuilder.Entity<Продукция>(entity =>
-            {
-                entity.HasKey(e => e.Код)
-                    .HasName("PrimaryKey");
-
-                entity.Property(e => e.Наименование).HasMaxLength(255);
-
-                entity.Property(e => e.Стоимость)
-                    .HasColumnType("decimal(19, 0)")
-                    .HasDefaultValueSql("0");
-            });
-
-            modelBuilder.Entity<ПродукцияЦехов>(entity =>
-            {
-                entity.HasKey(e => e.Код)
-                    .HasName("PrimaryKey");
-
-                entity.ToTable("Продукция Цехов");
-
-                entity.HasIndex(e => e.Продукт)
-                    .HasName("ПродукцияПродукция Цехов");
-
-                entity.HasIndex(e => e.Цех)
-                    .HasName("ЦехаТаблица1");
-
-                entity.HasOne(d => d.ПродуктNavigation)
-                    .WithMany(p => p.ПродукцияЦехов)
-                    .HasForeignKey(d => d.Продукт)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("ПродукцияПродукция Цехов");
-
-                entity.HasOne(d => d.ЦехNavigation)
-                    .WithMany(p => p.ПродукцияЦехов)
-                    .HasForeignKey(d => d.Цех)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("ЦехаТаблица1");
             });
 
             modelBuilder.Entity<Сотрудники>(entity =>
@@ -141,56 +90,60 @@ namespace TyagPressMashClientApp
                 entity.HasKey(e => e.Код)
                     .HasName("PrimaryKey");
 
-                entity.HasIndex(e => e.Должность)
-                    .HasName("ДолжностиТаблица1");
+                entity.Property(e => e.АдресПроживания)
+                    .HasColumnName("Адрес проживания")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.АдресРегистрации)
+                    .HasColumnName("Адрес регистрации")
+                    .HasMaxLength(255);
 
                 entity.Property(e => e.ДатаРождения).HasColumnName("Дата рождения");
 
-                entity.Property(e => e.Имя)
-                    .IsRequired()
+                entity.Property(e => e.КодДолжности).HasColumnName("Код должности");
+
+                entity.Property(e => e.КодЦеха).HasColumnName("Код цеха");
+
+                entity.Property(e => e.Номер).HasDefaultValueSql("0");
+
+                entity.Property(e => e.Фио)
+                    .HasColumnName("ФИО")
                     .HasMaxLength(255);
 
-                entity.Property(e => e.Инвалидность)
-                    .IsRequired()
-                    .HasColumnType("bit")
-                    .HasDefaultValueSql("No");
-
-                entity.Property(e => e.НомерПаспорта)
-                    .HasColumnName("Номер Паспорта")
-                    .HasDefaultValueSql("0");
-
-                entity.Property(e => e.Образование).HasMaxLength(255);
-
-                entity.Property(e => e.Отчество).HasMaxLength(255);
-
-                entity.Property(e => e.СерияПаспорта)
-                    .HasColumnName("Серия Паспорта")
-                    .HasDefaultValueSql("0");
-
-                entity.Property(e => e.Фамилия)
-                    .IsRequired()
-                    .HasMaxLength(255);
-
-                entity.HasOne(d => d.ДолжностьNavigation)
+                entity.HasOne(d => d.КодДолжностиNavigation)
                     .WithMany(p => p.Сотрудники)
-                    .HasForeignKey(d => d.Должность)
-                    .HasConstraintName("ДолжностиТаблица1");
+                    .HasForeignKey(d => d.КодДолжности)
+                    .HasConstraintName("ДолжностиСотрудники");
 
-                entity.HasOne(d => d.ЦехNavigation)
+                entity.HasOne(d => d.КодЦехаNavigation)
                     .WithMany(p => p.Сотрудники)
-                    .HasForeignKey(d => d.Цех)
-                    .HasConstraintName("ЦехаСотрудники");
+                    .HasForeignKey(d => d.КодЦеха)
+                    .HasConstraintName("ЦехиСотрудники");
             });
 
-            modelBuilder.Entity<Цеха>(entity =>
+            modelBuilder.Entity<Увольнения>(entity =>
             {
                 entity.HasKey(e => e.Код)
                     .HasName("PrimaryKey");
 
-                entity.Property(e => e.Вредность)
-                    .IsRequired()
-                    .HasColumnType("bit")
-                    .HasDefaultValueSql("No");
+                entity.Property(e => e.ДатаУвольнения).HasColumnName("Дата увольнения");
+
+                entity.Property(e => e.КодУволенногоСотрудника).HasColumnName("Код уволенного сотрудника");
+
+                entity.Property(e => e.ПричинаУвольнения)
+                    .HasColumnName("Причина увольнения")
+                    .HasMaxLength(255);
+
+                entity.HasOne(d => d.КодУволенногоСотрудникаNavigation)
+                    .WithMany(p => p.Увольнения)
+                    .HasForeignKey(d => d.КодУволенногоСотрудника)
+                    .HasConstraintName("СотрудникиТаблица12");
+            });
+
+            modelBuilder.Entity<Цехи>(entity =>
+            {
+                entity.HasKey(e => e.Код)
+                    .HasName("PrimaryKey");
 
                 entity.Property(e => e.Название).HasMaxLength(255);
             });

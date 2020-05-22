@@ -16,11 +16,6 @@ namespace TyagPressMashClientApp
 
         public ValueContainer<string> CurrentPage { get; set; } = new ValueContainer<string>("Сотрудники");
 
-        public List<string> Educations { get; } = Enum.GetValues(typeof(Образование))
-            .Cast<Образование>()
-            .Select(x => (x.ToString().Replace('_', ' ')))
-            .ToList();
-
         public ValueContainer<bool> IsUpdating { get; set; } = new ValueContainer<bool>();
 
         public MainWindow()
@@ -54,12 +49,11 @@ namespace TyagPressMashClientApp
             try
             {
                 db.Должности.Load();
-                db.Доплаты.Load();
-                db.Заказы.Load();
-                db.Продукция.Load();
-                db.ПродукцияЦехов.Load();
+                db.Цехи.Load();
+                db.Документы.Load();
+                db.Отпуска.Load();
                 db.Сотрудники.Load();
-                db.Цеха.Load();
+                db.Увольнения.Load();
             }
             catch
             {
@@ -67,12 +61,11 @@ namespace TyagPressMashClientApp
                 return false;
             }
             BDViewModel.Positions = db.Должности.Local.ToBindingList();
-            BDViewModel.Payments = db.Доплаты.Local.ToBindingList();
-            BDViewModel.Orders = db.Заказы.Local.ToBindingList();
-            BDViewModel.Products = db.Продукция.Local.ToBindingList();
-            BDViewModel.WorkshopsProducts = db.ПродукцияЦехов.Local.ToBindingList();
+            BDViewModel.Shops = db.Цехи.Local.ToBindingList();
+            BDViewModel.Documents = db.Документы.Local.ToBindingList();
+            BDViewModel.Holidays = db.Отпуска.Local.ToBindingList();
             BDViewModel.Employees = db.Сотрудники.Local.ToBindingList();
-            BDViewModel.Workshops = db.Цеха.Local.ToBindingList();
+            BDViewModel.Layoffs = db.Увольнения.Local.ToBindingList();
             return true;
         }
 
@@ -114,20 +107,18 @@ namespace TyagPressMashClientApp
             IsUpdating.Value = false;
         }
 
+        private void ToggleButton_Click(object sender, RoutedEventArgs e) => StopEditing();
+
+        private void DocumentsButton_Click(object sender, RoutedEventArgs e) { tabCntrl.SelectedItem = DocumentsGrid; CurrentPage.Value = "Документы"; }
+
         private void PositionsButton_Click(object sender, RoutedEventArgs e) { tabCntrl.SelectedItem = PositionsGrid; CurrentPage.Value = "Должности"; }
 
-        private void PaymentsButton_Click(object sender, RoutedEventArgs e) { tabCntrl.SelectedItem = PaymentsGrid; CurrentPage.Value = "Доплаты"; }
-
-        private void OrdersButton_Click(object sender, RoutedEventArgs e) { tabCntrl.SelectedItem = OrdersGrid; CurrentPage.Value = "Заказы"; }
-
-        private void ProductsButton_Click(object sender, RoutedEventArgs e) { tabCntrl.SelectedItem = ProductsGrid; CurrentPage.Value = "Продукция"; }
-
-        private void WorkshopsProductsButton_Click(object sender, RoutedEventArgs e) { tabCntrl.SelectedItem = WorkshopsProductsGrid; CurrentPage.Value = "Производство в цехах"; }
+        private void HolidaysButton_Click(object sender, RoutedEventArgs e) { tabCntrl.SelectedItem = HolidaysGrid; CurrentPage.Value = "Отпуска"; }
 
         private void EmployeesButton_Click(object sender, RoutedEventArgs e) { tabCntrl.SelectedItem = EmployeesGrid; CurrentPage.Value = "Сотрудники"; }
 
-        private void WorkshopsButton_Click(object sender, RoutedEventArgs e) { tabCntrl.SelectedItem = WorkshopsGrid; CurrentPage.Value = "Цеха"; }
+        private void LayoffsButton_Click(object sender, RoutedEventArgs e) { tabCntrl.SelectedItem = LayoffsGrid; CurrentPage.Value = "Увольнения"; }
 
-        private void ToggleButton_Click(object sender, RoutedEventArgs e) => StopEditing();
+        private void ShopsButton_Click(object sender, RoutedEventArgs e) { tabCntrl.SelectedItem = WorkshopsGrid; CurrentPage.Value = "Цехи"; }
     }
 }
