@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KursovayaGIS", "KursovayaGIS\KursovayaGIS.csproj", "{DEA4A2D5-6BAE-48C5-8927-7E1704CE4979}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DEA4A2D5-6BAE-48C5-8927-7E1704CE4979}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEA4A2D5-6BAE-48C5-8927-7E1704CE4979}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEA4A2D5-6BAE-48C5-8927-7E1704CE4979}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEA4A2D5-6BAE-48C5-8927-7E1704CE4979}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4C8F83C4-784B-4E79-BFF6-26660747A5A5}
+	EndGlobalSection
+EndGlobal

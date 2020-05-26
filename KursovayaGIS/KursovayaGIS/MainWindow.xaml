@@ -1,0 +1,27 @@
+﻿<Window x:Class="KursovayaGIS.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KursovayaGIS"
+        mc:Ignorable="d"
+        Title="ГИС Арифметическое кодирование" Height="450" Width="850">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Left" Margin="5">
+            <Button x:Name="OpenButton" Margin="5" Click="OpenButton_Click">Загрузить bmp</Button>
+            <TextBlock Margin="5">Кодировать каждые N байт</TextBlock>
+            <TextBox Margin="5" x:Name="SizeTextBox" PreviewTextInput="NumberValidationTextBox" MaxLength="10">500</TextBox>
+            <Button x:Name="EncodeButton" Margin="5" Click="EncodeButton_Click">Кодировать</Button>
+            <Button x:Name="SaveButton" Margin="5" Click="SaveButton_Click">Сохранить</Button>
+            <Button x:Name="OpenEncodeButton" Margin="5" Click="OpenEncodeButton_Click">Загрузить кодированный файл</Button>
+            <TextBlock>Размер открытого файла</TextBlock>
+            <TextBlock x:Name="SizeTextBlock" Margin="5"></TextBlock>
+            <TextBlock>Размер кодированного файла</TextBlock>
+            <TextBlock x:Name="SizeCodedTextBlock" Margin="5"></TextBlock>
+        </StackPanel>
+
+        <Image x:Name="Picture" DockPanel.Dock="Left" Height="400" Width="300" ></Image>
+        <Image x:Name="EncodedPicture" DockPanel.Dock="Left" Height="400" Width="300"></Image>
+
+    </DockPanel>
+</Window>
