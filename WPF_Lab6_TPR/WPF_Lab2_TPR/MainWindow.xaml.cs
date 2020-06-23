@@ -35,7 +35,7 @@ namespace WPF_Lab2_TPR
             psForHodjes = new ObservableCollection<Probability>();
         }
 
-        private void ReadMatrix(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             textBox.Text = string.Empty;
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -46,10 +46,16 @@ namespace WPF_Lab2_TPR
                     .ReadAllLines(openFileDialog1.FileName)
                     .Select(a => Array.ConvertAll(a.Split(';'), Double.Parse)).To2DArray();
 
-                matrix = new Matrix(csv);
+                matrix = new Matrix(csv) { Logger = Log };
                 dataGrid.ItemsSource2D = csv;
             }
 
+        }
+
+        void Log(string msg)
+        {
+            textBox.AppendText("\n");
+            textBox.AppendText(msg);
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -60,7 +66,7 @@ namespace WPF_Lab2_TPR
                 return;
             }
             textBox.Text = string.Empty;
-            List<(string method, int row)> results = new List<(string, int row)>();
+            List<(string method, (int row, double value) methodValue)> results = new List<(string, (int row, double value))>();
             if (GrumblerCheckbox.IsChecked == true)
                 results.Add(("Азартный", matrix.Grambler()));
             if (MaxminCheckbox.IsChecked == true)
@@ -73,7 +79,7 @@ namespace WPF_Lab2_TPR
             if (BaiesCheckbox.IsChecked == true)
                 if (Criterions.DoubleEqual(psForBaies.ToList().Sum(x => x.value??0), 1))
                     if (psForBaies.Count() == matrix.ColumnCount)
-                        results.Add(("Байес", matrix.Baies(psForBaies.Select(x => x.value??0).ToList())));
+                        results.Add(("Байес", matrix.Baies(psForBaies.Select(x => x.value??0))));
                     else
                         MessageBox.Show("Wrong vector for baies");
                 else
@@ -86,15 +92,15 @@ namespace WPF_Lab2_TPR
             {
                 if (Criterions.DoubleEqual(psForHodjes.ToList().Sum(x => x.value??0), 1))
                     if (psForHodjes.Count() == matrix.ColumnCount)
-                        results.Add(("Ходжес-Леман", matrix.HodjesLeman(psForHodjes.Select(x => x.value??0).ToList(), HodjesP.value ?? 0)));
+                        results.Add(("Ходжес-Леман", matrix.HodjesLeman(psForHodjes.Select(x => x.value??0), HodjesP.value ?? 0)));
                     else
                         MessageBox.Show("Wrong vector for Hodjes");
                 else
                     MessageBox.Show("Sum for Hodjes != 1");
             }
 
-            results.ForEach(x => textBox.AppendText($"{x.method} - выбрал стретегию {x.row + 1}\n"));
-            textBox.AppendText($"Стоит выбрать стратегию : {results.GroupBy(x => x.row).OrderByDescending(x => x.Count()).FirstOrDefault()?.Key + 1}\n");
+            results.ForEach(x => textBox.AppendText($"{x.method} - выбрал стретегию {x.methodValue.row + 1} со значением: {x.methodValue.value}\n"));
+            textBox.AppendText($"Стоит выбрать стратегию : {results.GroupBy(x => x.methodValue.row).OrderByDescending(x => x.Count()).FirstOrDefault()?.FirstOrDefault().methodValue.row + 1}\n");
         }
 
     }

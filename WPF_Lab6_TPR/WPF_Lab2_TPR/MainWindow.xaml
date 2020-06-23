@@ -4,10 +4,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"     
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:materialDesignColors="clr-namespace:MaterialDesignColors;assembly=MaterialDesignColors"
         xmlns:local="clr-namespace:WPF_Lab2_TPR"
         mc:Ignorable="d"
-        Title="Критерии" Height="625" Width="1000"
+        Title="Критерии" Height="520" Width="800"
         WindowStartupLocation="CenterScreen"
         Icon="icons8_list.ico"
          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -20,51 +19,53 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         >
     <DockPanel LastChildFill ="True">
-        <ScrollViewer DockPanel.Dock="Top" HorizontalScrollBarVisibility="Auto">
-            <StackPanel  Orientation="Horizontal">
-                <Button FontSize="13" Margin="13,13,13,13"  Height="32" Width="174" Click="ReadMatrix" Padding="0">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="icons8_ms_excel.ico" Width="30" Height="30" HorizontalAlignment="Center"/>
-                        <TextBlock Text="Считать матрицу" VerticalAlignment="Center" />
-                    </StackPanel>
-                </Button>
+        <StackPanel DockPanel.Dock="Left" Width="200">
+            <Button             
+                FontSize="13"
+                 Margin="13"  Height="32" Width="174" Click="Button_Click" Padding="0">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="icons8_ms_excel.ico" Width="30" Height="30" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Считать матрицу" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+            <CheckBox x:Name="GrumblerCheckbox"  FontSize="18" Content="Азартный игрок" VerticalContentAlignment="Center" Margin="15,-0,5,0"></CheckBox>
+            <CheckBox x:Name="MaxminCheckbox"  FontSize="18" Content="Максиминный" VerticalContentAlignment="Center" Margin="15,-0,0,0"></CheckBox>
+            <CheckBox x:Name="GurvicCheckbox"  FontSize="18" Content="Гурвиц" VerticalContentAlignment="Center" Margin="15,-0,0,0"></CheckBox>
 
-                <CheckBox x:Name="GrumblerCheckbox"  FontSize="18" Content="Азартный игрок" VerticalContentAlignment="Center" Margin="15,-0,5,0"/>
-                <CheckBox x:Name="MaxminCheckbox"  FontSize="18" Content="Максиминный" VerticalContentAlignment="Center" Margin="15,-0,0,0"/>
-                <CheckBox x:Name="GurvicCheckbox"  FontSize="18" Content="Гурвиц" VerticalContentAlignment="Center" Margin="15,-0,0,0"/>
-
-                <TextBox x:Name="gurvicTextbox" MaxWidth="200" FontSize="16" Margin="15,-0,15,12"
+            <TextBox x:Name="gurvicTextbox" MaxWidth="200" FontSize="16" Margin="15,-0,15,12"
                      VerticalContentAlignment="Top"
                      HorizontalContentAlignment="Center"                   
                      materialDesign:HintAssist.Hint="Уровень доверия">
-                    <TextBox.Text>
-                        <Binding Path="GurvicP.value"
+                <TextBox.Text>
+                    <Binding Path="GurvicP.value"
                         Mode="TwoWay" 
                         UpdateSourceTrigger="PropertyChanged"
                         Delay="250">
-                            <Binding.ValidationRules>
-                                <DataErrorValidationRule />
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                    <TextBox.Style >
-                        <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
-                            <Setter Property="Visibility" Value="Collapsed" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsChecked, ElementName=GurvicCheckbox}" Value="True">
-                                    <Setter Property="Visibility" Value="Visible" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBox.Style>
-                </TextBox>
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <TextBox.Style >
+                    <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsChecked, ElementName=GurvicCheckbox}" Value="True">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
 
-                <CheckBox x:Name="SevidgeCheckbox"  FontSize="18" Content="Сэвидж" VerticalContentAlignment="Center" Margin="15,-0,0,0"/>
-                <CheckBox x:Name="BaiesCheckbox"  FontSize="18" Content="Байес" VerticalContentAlignment="Center" Margin="15,-0,0,0"/>
+            <CheckBox x:Name="SevidgeCheckbox"  FontSize="18" Content="Сэвидж" VerticalContentAlignment="Center" Margin="15,-0,0,0"></CheckBox>
+            <CheckBox x:Name="BaiesCheckbox"  FontSize="18" Content="Байес" VerticalContentAlignment="Center" Margin="15,-0,0,0"></CheckBox>
 
-                <StackPanel >
-                    <DataGrid Margin="15,15,15,0"                       
-                      ItemsSource="{Binding psForBaies, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=250}"
+            <DataGrid Margin="15,-0,15,0"
+                         
+                      ItemsSource="{Binding psForBaies, Mode=TwoWay, 
+                        UpdateSourceTrigger=PropertyChanged, 
+                        Delay=250}"
                       x:Name="baiesDatagrid"
                       MaxHeight="200"
                       AutoGenerateColumns="False"
@@ -73,93 +74,92 @@
                       CanUserReorderColumns="False" 
                       CanUserResizeColumns="False" 
                       SelectionUnit="FullRow" 
-                      HeadersVisibility="Column"
-                              VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <DataGrid.Style>
-                            <Style TargetType="DataGrid">
+                      HeadersVisibility="Column" 
+     >
+                <DataGrid.Style>
+                    <Style TargetType="DataGrid">
+                        
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsChecked, ElementName=BaiesCheckbox}" Value="True">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
 
-                                <Setter Property="Visibility" Value="Collapsed" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsChecked, ElementName=BaiesCheckbox}" Value="True">
-                                        <Setter Property="Visibility" Value="Visible" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
+                </DataGrid.Style>
 
-                        </DataGrid.Style>
+                <DataGrid.Columns >
+                    <DataGridTextColumn Header="Chances" Binding="{Binding value}" FontSize="20"/>
+                </DataGrid.Columns>
 
-                        <DataGrid.Columns >
-                            <DataGridTextColumn Header="Chances" Binding="{Binding value}" FontSize="20"/>
-                        </DataGrid.Columns>
+                <DataGrid.LayoutTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"/>
+                        <ScaleTransform ScaleX="1" ScaleY="-1" />
+                    </TransformGroup>
+                </DataGrid.LayoutTransform>
 
-                        <DataGrid.LayoutTransform>
-                            <TransformGroup>
-                                <RotateTransform Angle="-90"/>
-                                <ScaleTransform ScaleX="1" ScaleY="-1" />
-                            </TransformGroup>
-                        </DataGrid.LayoutTransform>
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="LayoutTransform">
+                            <Setter.Value>
+                                <TransformGroup>
+                                    <RotateTransform Angle="-90"/>
+                                    <ScaleTransform ScaleX="1" ScaleY="-1" />
+                                </TransformGroup>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="FontWeight" Value="Bold"></Setter>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
 
-                        <DataGrid.ColumnHeaderStyle>
-                            <Style TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="LayoutTransform">
-                                    <Setter.Value>
-                                        <TransformGroup>
-                                            <RotateTransform Angle="-90"/>
-                                            <ScaleTransform ScaleX="1" ScaleY="-1" />
-                                        </TransformGroup>
-                                    </Setter.Value>
-                                </Setter>
-                                <Setter Property="FontWeight" Value="Bold"></Setter>
-                            </Style>
-                        </DataGrid.ColumnHeaderStyle>
+                <DataGrid.CellStyle >
+                    <Style TargetType="DataGridCell" >
+                        <Setter Property="LayoutTransform">
+                            <Setter.Value>
+                                <TransformGroup>
+                                    <RotateTransform Angle="-90"/>
+                                    <ScaleTransform ScaleX="1" ScaleY="-1" />
+                                </TransformGroup>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.CellStyle>
+            </DataGrid>
 
-                        <DataGrid.CellStyle >
-                            <Style TargetType="DataGridCell" >
-                                <Setter Property="LayoutTransform">
-                                    <Setter.Value>
-                                        <TransformGroup>
-                                            <RotateTransform Angle="-90"/>
-                                            <ScaleTransform ScaleX="1" ScaleY="-1" />
-                                        </TransformGroup>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </DataGrid.CellStyle>
-                    </DataGrid>
-                </StackPanel>
-
-                <CheckBox x:Name="LaplasCheckbox"  FontSize="18" Content="Лаплас" VerticalContentAlignment="Center" Margin="15,-0,0,0"/>
-                <CheckBox x:Name="HodjesCheckbox"  FontSize="18" Content="Ходжес-Леман" VerticalContentAlignment="Center" Margin="15,-0,0,0"/>
-
-                <StackPanel Margin="15,-0,15,0">
-                    <TextBox x:Name="HodjesTextBox" MaxWidth="200" FontSize="16" 
+            <CheckBox x:Name="LaplasCheckbox"  FontSize="18" Content="Лаплас" VerticalContentAlignment="Center" Margin="15,-0,0,0"></CheckBox>
+            <CheckBox x:Name="HodjesCheckbox"  FontSize="18" Content="Ходжес-Леман" VerticalContentAlignment="Center" Margin="15,-0,0,0"></CheckBox>
+            
+            <StackPanel Margin="15,-0,15,0">
+                <TextBox x:Name="HodjesTextBox" MaxWidth="200" FontSize="16" 
                           materialDesign:HintAssist.Hint="Уровень доверия"
                           VerticalContentAlignment="Top"
-                          HorizontalContentAlignment="Center"
-                          Margin="0,0,0,17">
+                     HorizontalContentAlignment="Center"
+                         Margin="0,0,0,17">
 
-                        <Binding Path="HodjesP.value"
+                    <Binding Path="HodjesP.value"
                         Mode="TwoWay" 
                         UpdateSourceTrigger="PropertyChanged"
                         Delay="250">
-                            <Binding.ValidationRules>
-                                <DataErrorValidationRule />
-                            </Binding.ValidationRules>
-                        </Binding>
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                    
+                    <TextBox.Style>
+                        <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsChecked, ElementName=HodjesCheckbox}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
 
-                        <TextBox.Style>
-                            <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
-                                <Setter Property="Visibility" Value="Collapsed" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsChecked, ElementName=HodjesCheckbox}" Value="True">
-                                        <Setter Property="Visibility" Value="Visible" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBox.Style>
-                    </TextBox>
-
-                    <DataGrid 
+                <DataGrid 
                     x:Name="HodjesDataGrid"
                     ItemsSource="{Binding psForHodjes,Mode=TwoWay, 
                         UpdateSourceTrigger=PropertyChanged, 
@@ -173,67 +173,69 @@
                       SelectionUnit="FullRow" 
                       HeadersVisibility="Column"                    
                     >
-                        <DataGrid.Style>
-                            <Style TargetType="DataGrid">
-                                <Setter Property="Visibility" Value="Collapsed"    />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsChecked, ElementName=HodjesCheckbox}" Value="True">
-                                        <Setter Property="Visibility" Value="Visible" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
+                    <DataGrid.Style>
+                        <Style TargetType="DataGrid">
+                            <Setter Property="Visibility" Value="Collapsed"    />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsChecked, ElementName=HodjesCheckbox}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
 
-                        </DataGrid.Style>
+                    </DataGrid.Style>
 
-                        <DataGrid.Columns >
-                            <DataGridTextColumn Header="Chances" Binding="{Binding value}" FontSize="20"/>
-                        </DataGrid.Columns>
+                    <DataGrid.Columns >
+                        <DataGridTextColumn Header="Chances" Binding="{Binding value}" FontSize="20"/>
+                    </DataGrid.Columns>
 
-                        <DataGrid.LayoutTransform>
-                            <TransformGroup>
-                                <RotateTransform Angle="-90"/>
-                                <ScaleTransform ScaleX="1" ScaleY="-1" />
-                            </TransformGroup>
-                        </DataGrid.LayoutTransform>
+                    <DataGrid.LayoutTransform>
+                        <TransformGroup>
+                            <RotateTransform Angle="-90"/>
+                            <ScaleTransform ScaleX="1" ScaleY="-1" />
+                        </TransformGroup>
+                    </DataGrid.LayoutTransform>
 
-                        <DataGrid.ColumnHeaderStyle>
-                            <Style TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="LayoutTransform">
-                                    <Setter.Value>
-                                        <TransformGroup>
-                                            <RotateTransform Angle="-90"/>
-                                            <ScaleTransform ScaleX="1" ScaleY="-1" />
-                                        </TransformGroup>
-                                    </Setter.Value>
-                                </Setter>
-                                <Setter Property="FontWeight" Value="Bold"></Setter>
-                            </Style>
-                        </DataGrid.ColumnHeaderStyle>
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="LayoutTransform">
+                                <Setter.Value>
+                                    <TransformGroup>
+                                        <RotateTransform Angle="-90"/>
+                                        <ScaleTransform ScaleX="1" ScaleY="-1" />
+                                    </TransformGroup>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="FontWeight" Value="Bold"></Setter>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
 
-                        <DataGrid.CellStyle>
-                            <Style TargetType="DataGridCell" >
-                                <Setter Property="LayoutTransform">
-                                    <Setter.Value>
-                                        <TransformGroup>
-                                            <RotateTransform Angle="-90"/>
-                                            <ScaleTransform ScaleX="1" ScaleY="-1" />
-                                        </TransformGroup>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </DataGrid.CellStyle>
-                    </DataGrid>
-                </StackPanel>
-
-                <Button  Content="Вычислить" Margin="13"  Height="32" Width="174" Click="Button_Click_1"/>
+                    <DataGrid.CellStyle>
+                        <Style TargetType="DataGridCell" >
+                            <Setter Property="LayoutTransform">
+                                <Setter.Value>
+                                    <TransformGroup>
+                                        <RotateTransform Angle="-90"/>
+                                        <ScaleTransform ScaleX="1" ScaleY="-1" />
+                                    </TransformGroup>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.CellStyle>
+                </DataGrid>
             </StackPanel>
-        </ScrollViewer>
-        
-        <TextBox x:Name="textBox" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" DockPanel.Dock="Left" MaxHeight="250" MinHeight="193" IsReadOnly="True" FontSize="18"/>
+
+            <Button  Content="Вычислить" Margin="13"  Height="32" Width="174" Click="Button_Click_1"/>
+
+        </StackPanel>
+
+
+        <TextBox x:Name="textBox" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" DockPanel.Dock="Bottom" MaxHeight="250" MinHeight="193" IsReadOnly="True" FontSize="14" ></TextBox>
+
         <dg2d:DataGrid2D x:Name="dataGrid"                        
                   Background="{DynamicResource MaterialDesignPaper}"
                   HeadersVisibility="None" 
-                  DockPanel.Dock="Right"
+                  DockPanel.Dock="Top"
                   MinHeight="213"  
                   IsReadOnly="true"
                   ColumnWidth="*"

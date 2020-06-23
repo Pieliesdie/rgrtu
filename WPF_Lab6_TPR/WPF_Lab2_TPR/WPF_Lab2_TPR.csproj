@@ -30,7 +30,7 @@
 
   <ItemGroup>
     <Reference Include="DataGrid2DLibrary">
-      <HintPath>..\..\..\..\Downloads\DataGrid2DLibrary\DataGrid2DLibrary.dll</HintPath>
+      <HintPath>dll\DataGrid2DLibrary.dll</HintPath>
     </Reference>
   </ItemGroup>
 
