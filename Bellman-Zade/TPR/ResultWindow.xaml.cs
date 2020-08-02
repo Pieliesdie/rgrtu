@@ -31,11 +31,7 @@ namespace TPR
             var RotateList = Enumerable.Range(0, Values[0].Count)
                          .Select(x => Enumerable.Range(0, Values.Count)
                                                 .Select(y => Values[y][x]).ToList()).ToList();
-
-
-            //uncomment if wanna in another dg
-            //Mins = RotateList.Select(x => new StringContainer() { Value = $"{x.Min().ToString(Format)}({Criterions[x.FindIndex(y=>y==x.Min())]})" }).ToList();
-
+        
             var mins = RotateList.Select(x =>x.Min()).ToList();
             Values.Add(mins);
             Criterions.Add("Minimums");
